@@ -1,0 +1,6 @@
+{
+  "name": "SoundWithin — Sound Healing, Meditation & Nature Retreats",
+  "description": "Immersive sound healing sessions, guided meditation, self-awareness journeys, and nature-based healing retreats in the serene Western Ghats.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
