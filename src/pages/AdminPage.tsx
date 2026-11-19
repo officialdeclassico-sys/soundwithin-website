@@ -14,6 +14,7 @@ import {
   Tent,
 } from 'lucide-react';
 import {Navbar} from '../components/Navbar';
+import {BUTTON_TOKENS} from '../utils/buttonThemes';
 import type {
   AvailabilityConfig,
   Booking,
@@ -339,7 +340,7 @@ export function AdminPage({onNavigate, onRefreshPublicData}: AdminPageProps) {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 rounded-full bg-[#4B1664] hover:bg-[#3A0E50] text-white text-sm font-medium shadow-md transition-colors cursor-pointer"
+                className={`w-full py-3 rounded-full text-sm font-medium cursor-pointer ${BUTTON_TOKENS.general}`}
               >
                 {loading ? 'Authenticating...' : 'Sign In to Admin Portal'}
               </button>
@@ -363,7 +364,7 @@ export function AdminPage({onNavigate, onRefreshPublicData}: AdminPageProps) {
                 <button
                   type="button"
                   onClick={() => fetchDashboard(token)}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#C6A7E2] bg-white text-xs font-medium text-[#3A1352] hover:bg-[#F3E8FC] cursor-pointer"
+                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium cursor-pointer ${BUTTON_TOKENS.secondary}`}
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
                   <span>Refresh</span>
@@ -371,7 +372,7 @@ export function AdminPage({onNavigate, onRefreshPublicData}: AdminPageProps) {
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#3A1352] text-white text-xs font-medium hover:bg-[#240B36] cursor-pointer"
+                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium cursor-pointer ${BUTTON_TOKENS.general}`}
                 >
                   <LogOut className="w-3.5 h-3.5" />
                   <span>Sign Out</span>
@@ -403,10 +404,10 @@ export function AdminPage({onNavigate, onRefreshPublicData}: AdminPageProps) {
                     key={t.id}
                     type="button"
                     onClick={() => setActiveTab(t.id as AdminTab)}
-                    className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium border transition-colors cursor-pointer ${
+                    className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs sm:text-sm font-medium cursor-pointer ${
                       active
-                        ? 'bg-[#4B1664] text-white border-[#4B1664] shadow-sm'
-                        : 'bg-white text-[#3A1352] border-[#C6A7E2] hover:bg-[#F3E8FC]'
+                        ? BUTTON_TOKENS.softViolet
+                        : BUTTON_TOKENS.secondary
                     }`}
                   >
                     <Icon className="w-4 h-4" />
@@ -470,10 +471,10 @@ export function AdminPage({onNavigate, onRefreshPublicData}: AdminPageProps) {
                             key={st}
                             type="button"
                             onClick={() => handleBookingStatusChange(b.id, st)}
-                            className={`px-3.5 py-1.5 rounded-full text-xs font-medium border transition-colors cursor-pointer ${
+                            className={`px-3.5 py-1.5 rounded-full text-xs font-medium cursor-pointer ${
                               b.status === st
-                                ? 'bg-[#4B1664] text-white border-[#4B1664]'
-                                : 'bg-[#FAF6FE] text-[#3A1352] border-[#C6A7E2] hover:bg-[#EFE2FA]'
+                                ? BUTTON_TOKENS.softViolet
+                                : BUTTON_TOKENS.secondary
                             }`}
                           >
                             {st}
@@ -526,10 +527,10 @@ export function AdminPage({onNavigate, onRefreshPublicData}: AdminPageProps) {
                             onClick={() =>
                               handleEnquiryStatusChange(enq.id, st)
                             }
-                            className={`px-3.5 py-1.5 rounded-full text-xs font-medium border transition-colors cursor-pointer ${
+                            className={`px-3.5 py-1.5 rounded-full text-xs font-medium cursor-pointer ${
                               enq.status === st
-                                ? 'bg-[#4B1664] text-white border-[#4B1664]'
-                                : 'bg-[#FAF6FE] text-[#3A1352] border-[#C6A7E2] hover:bg-[#EFE2FA]'
+                                ? BUTTON_TOKENS.softViolet
+                                : BUTTON_TOKENS.secondary
                             }`}
                           >
                             {st}
@@ -609,7 +610,7 @@ export function AdminPage({onNavigate, onRefreshPublicData}: AdminPageProps) {
                     <button
                       type="button"
                       onClick={() => handleSaveExperience(exp)}
-                      className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#4B1664] text-white text-xs font-medium hover:bg-[#3A0E50] cursor-pointer"
+                      className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-medium cursor-pointer ${BUTTON_TOKENS.general}`}
                     >
                       <Save className="w-3.5 h-3.5" />
                       <span>Save Experience</span>
@@ -672,7 +673,7 @@ export function AdminPage({onNavigate, onRefreshPublicData}: AdminPageProps) {
                   <button
                     type="button"
                     onClick={handleSaveUpcomingBatches}
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#4B1664] text-white text-xs font-medium hover:bg-[#3A0E50] cursor-pointer"
+                    className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-medium cursor-pointer ${BUTTON_TOKENS.general}`}
                   >
                     <Save className="w-3.5 h-3.5" />
                     <span>Save Upcoming Schedules</span>
@@ -766,7 +767,7 @@ export function AdminPage({onNavigate, onRefreshPublicData}: AdminPageProps) {
                       <button
                         type="button"
                         onClick={() => handleSaveRetreat(ret)}
-                        className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#4B1664] text-white text-xs font-medium hover:bg-[#3A0E50] cursor-pointer"
+                        className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-medium cursor-pointer ${BUTTON_TOKENS.general}`}
                       >
                         <Save className="w-3.5 h-3.5" />
                         <span>Save Retreat Details</span>
@@ -827,7 +828,7 @@ export function AdminPage({onNavigate, onRefreshPublicData}: AdminPageProps) {
                 </label>
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#4B1664] text-white text-xs font-medium hover:bg-[#3A0E50] cursor-pointer"
+                  className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-medium cursor-pointer ${BUTTON_TOKENS.general}`}
                 >
                   <Save className="w-3.5 h-3.5" />
                   <span>Save Availability Settings</span>
@@ -925,7 +926,7 @@ export function AdminPage({onNavigate, onRefreshPublicData}: AdminPageProps) {
 
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#4B1664] text-white text-xs font-medium hover:bg-[#3A0E50] cursor-pointer"
+                  className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-medium cursor-pointer ${BUTTON_TOKENS.general}`}
                 >
                   <Save className="w-3.5 h-3.5" />
                   <span>Save Website Settings</span>

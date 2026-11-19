@@ -1,11 +1,13 @@
 import React from 'react';
 import {Calendar, Clock, MapPin} from 'lucide-react';
+import {getExperienceButtonToken} from '../utils/buttonThemes';
 import type {Experience} from '../types';
 
 export interface ExperienceCardProps {
   experience: Experience;
   index: number;
   onLearnMore: (exp: Experience) => void;
+  ctaLabel?: string;
 }
 
 interface ExperiencePastelTheme {
@@ -80,6 +82,7 @@ export function ExperienceCard({
   experience,
   index,
   onLearnMore,
+  ctaLabel = 'Learn More',
 }: ExperienceCardProps) {
   const theme =
     EXPERIENCE_PASTEL_THEMES_BY_ID[experience.id] ||
@@ -93,11 +96,11 @@ export function ExperienceCard({
   return (
     <article
       style={{borderColor: theme.borderHex}}
-      className="group relative rounded-[26px] bg-white/95 p-[6px] sm:p-[7px] border shadow-[0_10px_30px_rgba(62,20,88,0.08)] hover:shadow-[0_16px_40px_rgba(62,20,88,0.14)] transition-all duration-200 flex flex-col"
+      className="group relative rounded-[24px] bg-white/95 p-[5px] sm:p-1.5 border shadow-[0_8px_24px_rgba(62,20,88,0.08)] hover:shadow-[0_14px_34px_rgba(62,20,88,0.14)] transition-all duration-200 flex flex-col"
     >
-      <div className="relative rounded-[20px] overflow-hidden flex-1 flex flex-col">
+      <div className="relative rounded-[19px] overflow-hidden flex-1 flex flex-col">
         {/* Top Experience Image — Full-bleed with smooth wavy lower transition */}
-        <div className="relative h-52 sm:h-56 w-full overflow-hidden shrink-0">
+        <div className="relative h-44 sm:h-48 lg:h-50 w-full overflow-hidden shrink-0">
           <img
             src={experience.image}
             alt={experience.name}
@@ -112,22 +115,22 @@ export function ExperienceCard({
           style={{
             background: `linear-gradient(180deg, ${theme.stopTop} 0%, ${theme.stopMid} 52%, ${theme.stopBottom} 100%)`,
           }}
-          className="relative -mt-8 pt-6 pb-6 px-6 flex-1 flex flex-col justify-between"
+          className="relative -mt-7 pt-4.5 pb-4.5 px-4.5 sm:pt-5 sm:pb-5 sm:px-5 flex-1 flex flex-col justify-between"
         >
           {/* Smooth S-Curve Wave Top Edge overlapping bottom of image */}
           <svg
-            viewBox="0 0 400 38"
+            viewBox="0 0 400 34"
             fill="none"
             preserveAspectRatio="none"
-            className="absolute -top-[37px] inset-x-0 w-full h-[38px] pointer-events-none select-none"
+            className="absolute -top-[33px] inset-x-0 w-full h-[34px] pointer-events-none select-none"
             aria-hidden="true"
           >
             <path
-              d="M0 20 C65 2, 130 4, 198 22 C266 40, 332 2, 400 18 L400 38 L0 38 Z"
+              d="M0 18 C65 2, 130 4, 198 20 C266 36, 332 2, 400 16 L400 34 L0 34 Z"
               fill={theme.stopTop}
             />
             <path
-              d="M0 20 C65 2, 130 4, 198 22 C266 40, 332 2, 400 18"
+              d="M0 18 C65 2, 130 4, 198 20 C266 36, 332 2, 400 16"
               stroke="#FFFFFF"
               strokeWidth="2"
               strokeOpacity="0.85"
@@ -139,7 +142,7 @@ export function ExperienceCard({
           <svg
             viewBox="0 0 24 24"
             fill="none"
-            className="absolute top-1.5 right-6 w-4 h-4 text-white/90 pointer-events-none select-none"
+            className="absolute top-1 right-5 w-3.5 h-3.5 text-white/90 pointer-events-none select-none"
             aria-hidden="true"
           >
             <path
@@ -153,7 +156,7 @@ export function ExperienceCard({
             viewBox="0 0 64 90"
             fill="none"
             style={{color: theme.sprigHex}}
-            className="absolute bottom-0 right-1.5 w-14 h-20 opacity-55 pointer-events-none select-none"
+            className="absolute bottom-0 right-1.5 w-12 h-17 opacity-55 pointer-events-none select-none"
             aria-hidden="true"
           >
             <path
@@ -193,42 +196,42 @@ export function ExperienceCard({
           </svg>
 
           {/* Title & Description */}
-          <div className="relative z-10 text-left pr-3">
-            <h3 className="font-serif-display text-[25px] sm:text-[27px] font-bold leading-[1.14] text-[#2F1041] mb-2.5">
+          <div className="relative z-10 text-left pr-2">
+            <h3 className="font-serif-display text-[23px] sm:text-[25px] font-bold leading-[1.14] text-[#2F1041] mb-1.5">
               {experience.name}
             </h3>
-            <p className="font-sans-body text-[13.5px] sm:text-[14px] text-[#261233] leading-[1.55] mb-4">
+            <p className="font-sans-body text-[13px] sm:text-[13.5px] text-[#261233] leading-[1.5] mb-3">
               {experience.shortDescription}
             </p>
           </div>
 
-          {/* Metadata & Solid Deep Burgundy Learn More Pill Button */}
+          {/* Metadata & Contextual Pastel Gradient CTA Button */}
           <div className="relative z-10">
             {/* Duration & Online/In-Person Row */}
-            <div className="flex items-center justify-start gap-3 text-[13px] sm:text-[13.5px] font-medium text-[#2A103C] mb-5">
+            <div className="flex items-center justify-start gap-2.5 text-[12.5px] sm:text-[13px] font-medium text-[#2A103C] mb-3.5">
               <span className="inline-flex items-center gap-1.5">
                 {useCalendarIcon ? (
-                  <Calendar className="w-4 h-4 text-[#3B1554] shrink-0" />
+                  <Calendar className="w-3.5 h-3.5 text-[#3B1554] shrink-0" />
                 ) : (
-                  <Clock className="w-4 h-4 text-[#3B1554] shrink-0" />
+                  <Clock className="w-3.5 h-3.5 text-[#3B1554] shrink-0" />
                 )}
                 <span>{experience.duration}</span>
               </span>
               <span className="text-[#3B1554]/45">|</span>
               <span className="inline-flex items-center gap-1.5">
-                <MapPin className="w-4 h-4 text-[#3B1554] shrink-0" />
+                <MapPin className="w-3.5 h-3.5 text-[#3B1554] shrink-0" />
                 <span>{experience.formatLabel}</span>
               </span>
             </div>
 
-            {/* Solid Deep Burgundy / Maroon Learn More Pill Button */}
+            {/* Contextual Pastel Gradient Pill CTA Button */}
             <div className="flex justify-center">
               <button
                 type="button"
                 onClick={() => onLearnMore(experience)}
-                className="inline-flex items-center justify-center min-w-[168px] px-8 py-2.5 rounded-full bg-[#681E38] hover:bg-[#52152C] active:bg-[#461125] text-white font-sans-body text-[14px] font-semibold tracking-[0.01em] transition-colors duration-200 cursor-pointer shadow-[0_4px_12px_rgba(104,30,56,0.22)] text-center whitespace-nowrap"
+                className={`inline-flex items-center justify-center min-w-[152px] px-7 py-2 rounded-full font-sans-body text-[13.5px] font-semibold tracking-[0.01em] cursor-pointer text-center whitespace-nowrap ${getExperienceButtonToken(experience.id, index)}`}
               >
-                <span>Learn More</span>
+                <span>{ctaLabel}</span>
               </button>
             </div>
           </div>

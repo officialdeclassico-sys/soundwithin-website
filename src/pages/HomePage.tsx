@@ -1,9 +1,10 @@
 import React, {useRef, useEffect} from 'react';
-import {Quote} from 'lucide-react';
 import {HeroBanner} from '../components/HeroBanner';
 import {ExperienceCard} from '../components/ExperienceCard';
 import {RetreatCard} from '../components/RetreatCard';
+import {TestimonialCarousel} from '../components/TestimonialCarousel';
 import {withBaseUrl} from '../utils/assetUrl';
+import {BUTTON_TOKENS} from '../utils/buttonThemes';
 import {
   CrescentMoonIcon,
   LotusLineIcon,
@@ -183,9 +184,10 @@ export function HomePage({
         currentPage="home"
         onNavigate={onNavigate}
         variant="home"
-        kicker="SOUND HEALING · SELF-AWARENESS · INNER BALANCE"
-        titleLines={['RETURN', 'TO YOUR', 'INNER FREQUENCY']}
-        description="Immersive sound journeys to calm the mind, release what no longer serves you, and reconnect with your true self."
+        kicker="SOUND HEALING · MEDITATION · HOLISTIC RETREATS"
+        titleLines={['Return to Your', 'Inner Harmony']}
+        description="Experience transformative sound healing, guided meditation, mindful yoga and nature retreats crafted to calm the mind and restore inner balance."
+        mobileDescription="Transformative sound healing, guided meditation, yoga and retreats for deep rest and inner balance."
         ctaLabel="Book Your Session"
         onCtaClick={() => onNavigate('book')}
       />
@@ -232,24 +234,24 @@ export function HomePage({
           </div>
         </div>
 
-        {/* Desktop, Laptop & Tablet Grid (>= 640px) — Preserved Unchanged */}
-        <div className="hidden sm:block layout-container py-7">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-6">
+        {/* Desktop, Laptop & Tablet Grid (>= 640px) — Compact & Balanced */}
+        <div className="hidden sm:block layout-container py-4 sm:py-4.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-4">
             {wellnessHighlights.map((item, index) => (
               <button
                 key={item.label}
                 type="button"
                 onClick={item.onClick}
-                className={`group flex flex-col items-center justify-center px-4 py-1 text-center transition-transform duration-150 hover:-translate-y-0.5 cursor-pointer ${
+                className={`group flex flex-col items-center justify-center px-3 py-0.5 text-center transition-transform duration-150 hover:-translate-y-0.5 cursor-pointer ${
                   index < wellnessHighlights.length - 1
                     ? 'lg:border-r lg:border-[#C5A3E0]/75'
                     : ''
                 }`}
               >
-                <div className="mb-2.5 transition-transform duration-200 group-hover:scale-110">
+                <div className="mb-1.5 transition-transform duration-200 group-hover:scale-110">
                   {item.icon}
                 </div>
-                <span className="font-serif-display text-[17px] sm:text-[18.5px] font-semibold text-[#3A1352] group-hover:text-[#5D237A]">
+                <span className="font-serif-display text-[16.5px] sm:text-[18px] font-semibold text-[#3A1352] group-hover:text-[#5D237A]">
                   {item.label}
                 </span>
               </button>
@@ -259,11 +261,11 @@ export function HomePage({
       </section>
 
       {/* 7. WHAT IS SOUND HEALING? SECTION */}
-      <section className="relative py-14 sm:py-20 overflow-hidden bg-[#FAF7FD]">
+      <section className="relative py-7 sm:py-10 lg:py-12 overflow-hidden bg-[#FAF7FD]">
         <div className="layout-container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
             {/* Left Text Column */}
-            <div className="lg:col-span-5 space-y-4">
+            <div className="lg:col-span-5 space-y-3">
               <p className="font-sans-body text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.24em] text-[#3B1554] whitespace-nowrap">
                 THE PRACTICE
               </p>
@@ -271,16 +273,16 @@ export function HomePage({
                 WHAT IS SOUND HEALING?
               </h2>
               <div className="w-14 h-[2px] bg-[#5D237A]" />
-              <p className="font-sans-body text-[15px] sm:text-[16px] leading-[1.7] text-[#2E1442] pt-1 max-w-[540px]">
+              <p className="font-sans-body text-[14.5px] sm:text-[15.5px] leading-[1.65] text-[#2E1442] pt-0.5 max-w-[540px]">
                 A natural and powerful therapy that uses sound vibrations to calm
                 the nervous system, release stored stress and bring your mind,
                 body and emotions back into balance.
               </p>
-              <div className="pt-2">
+              <div className="pt-1">
                 <button
                   type="button"
                   onClick={() => onNavigate('experiences')}
-                  className="inline-flex items-center justify-center px-8 py-2.5 rounded-full bg-white hover:bg-[#F3E8FC] text-[#3A1352] font-sans-body text-[14.5px] font-medium border border-[#5D237A] shadow-sm transition-all cursor-pointer text-center"
+                  className={`inline-flex items-center justify-center px-7 py-2 rounded-full font-sans-body text-[14px] font-semibold cursor-pointer text-center whitespace-nowrap ${BUTTON_TOKENS.lavenderViolet}`}
                 >
                   <span>Learn More</span>
                 </button>
@@ -289,7 +291,7 @@ export function HomePage({
 
             {/* Right Organic Singing Bowl Image Column */}
             <div className="lg:col-span-7 flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-[740px]">
+              <div className="relative w-full max-w-[650px]">
                 <img
                   src={withBaseUrl('/assets/extracted/home_what_is_sound_healing.png')}
                   alt="Himalayan lotus singing bowl with rising incense, purple blossoms, amethyst crystals, and waterfall"
@@ -303,10 +305,10 @@ export function HomePage({
       </section>
 
       {/* 8 & 9. OUR EXPERIENCES INTRODUCTION + EXPERIENCE HIGHLIGHTS */}
-      <section className="relative pt-14 pb-20 overflow-hidden bg-gradient-to-b from-[#EDE0F9] via-[#F7F1FC] to-[#FAF7FD]">
+      <section className="relative pt-7 pb-8 sm:pt-10 sm:pb-11 lg:pt-11 lg:pb-12 overflow-hidden bg-gradient-to-b from-[#EDE0F9] via-[#F7F1FC] to-[#FAF7FD]">
         {/* Decorative Layered Purple Hills SVG Top Transition */}
         <div
-          className="absolute top-0 inset-x-0 h-28 pointer-events-none overflow-hidden"
+          className="absolute top-0 inset-x-0 h-16 sm:h-20 pointer-events-none overflow-hidden"
           aria-hidden="true"
         >
           <svg
@@ -327,23 +329,23 @@ export function HomePage({
           </svg>
         </div>
 
-        <div className="relative z-10 layout-container pt-8">
+        <div className="relative z-10 layout-container pt-3 sm:pt-4">
           {/* Section Heading — Single line heading and subheading across all devices */}
-          <div className="text-center w-full max-w-full mx-auto mb-9 sm:mb-12">
-            <p className="font-sans-body text-[10.5px] sm:text-[12px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.25em] text-[#4B1664] mb-1.5 sm:mb-2 whitespace-nowrap">
+          <div className="text-center w-full max-w-full mx-auto mb-5 sm:mb-7">
+            <p className="font-sans-body text-[10.5px] sm:text-[12px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.25em] text-[#4B1664] mb-1 sm:mb-1.5 whitespace-nowrap">
               OUR EXPERIENCES
             </p>
             <h2 className="font-serif-display text-[clamp(11.5px,3.1vw,40px)] font-medium uppercase tracking-[0.02em] sm:tracking-[0.04em] leading-[1.15] text-[#321048] whitespace-nowrap">
               HEALING JOURNEYS FOR YOUR INNER SELF
             </h2>
-            <div className="w-12 sm:w-14 h-[2px] bg-[#5D237A] mx-auto my-2.5 sm:my-3.5" />
+            <div className="w-12 sm:w-14 h-[2px] bg-[#5D237A] mx-auto my-2 sm:my-2.5" />
             <p className="font-sans-body text-[clamp(4.5px,1.42vw,15.5px)] tracking-[-0.015em] sm:tracking-normal text-[#3F2157] leading-relaxed mx-auto whitespace-nowrap">
               Explore our curated sound healing, meditation and self-awareness sessions designed for deep rest, emotional clarity and inner balance.
             </p>
           </div>
 
           {/* 3 Featured Experience Highlights — Synchronised via Shared ExperienceCard */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-7 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
             {experiences.slice(0, 3).map((exp, index) => (
               <ExperienceCard
                 key={exp.id}
@@ -354,11 +356,11 @@ export function HomePage({
             ))}
           </div>
 
-          <div className="mt-10 text-center">
+          <div className="mt-6 sm:mt-7 text-center">
             <button
               type="button"
               onClick={() => onNavigate('experiences')}
-              className="inline-flex items-center justify-center px-9 py-3 rounded-full bg-[#4B1664] hover:bg-[#3A0E50] text-white text-[14.5px] font-medium shadow-[0_6px_20px_rgba(75,22,100,0.3)] transition-all cursor-pointer text-center"
+              className={`inline-flex items-center justify-center px-8 py-2.5 rounded-full text-[14px] font-medium cursor-pointer text-center whitespace-nowrap ${BUTTON_TOKENS.softViolet}`}
             >
               <span>View All 6 Healing Experiences</span>
             </button>
@@ -367,11 +369,11 @@ export function HomePage({
       </section>
 
       {/* 10. RETREAT INTRODUCTION SECTION — Synchronised via Shared RetreatCard */}
-      <section className="py-16 sm:py-20 bg-[#F4ECFB]/70 border-y border-[#E5D3F6]">
+      <section className="py-7 sm:py-10 lg:py-12 bg-[#F4ECFB]/70 border-y border-[#E5D3F6]">
         <div className="layout-container">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-5">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-5 sm:mb-7 gap-3.5">
             <div className="min-w-0">
-              <p className="font-sans-body text-[10.5px] sm:text-[12px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.25em] text-[#5D237A] mb-1.5 sm:mb-2 whitespace-nowrap">
+              <p className="font-sans-body text-[10.5px] sm:text-[12px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.25em] text-[#5D237A] mb-1 whitespace-nowrap">
                 NATURE-BASED SANCTUARIES
               </p>
               <h2 className="font-serif-display text-[clamp(15.5px,3.4vw,40px)] font-medium uppercase tracking-[0.02em] sm:tracking-[0.03em] text-[#321048] whitespace-nowrap">
@@ -381,13 +383,13 @@ export function HomePage({
             <button
               type="button"
               onClick={() => onNavigate('retreats')}
-              className="self-start md:self-auto inline-flex items-center justify-center px-7 py-2.5 rounded-full bg-white border border-[#5D237A] text-[#3A1352] hover:bg-[#4B1664] hover:text-white text-[14px] font-medium transition-colors cursor-pointer text-center whitespace-nowrap"
+              className={`self-start md:self-auto inline-flex items-center justify-center px-6 py-2 rounded-full text-[13.5px] font-medium cursor-pointer text-center whitespace-nowrap ${BUTTON_TOKENS.secondary}`}
             >
               <span>Explore All Retreats</span>
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-7 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
             {retreats.map((retreat, index) => (
               <RetreatCard
                 key={retreat.id}
@@ -400,94 +402,63 @@ export function HomePage({
         </div>
       </section>
 
-      {/* 11. TESTIMONIALS SECTION */}
-      <section className="py-16 sm:py-20 bg-[#FAF7FD]">
+      {/* 11. TESTIMONIALS SECTION — Continuously Flowing Infinite-Loop Carousel (6 Cards) */}
+      <section className="py-7 sm:py-10 lg:py-12 bg-[#FAF7FD]">
         <div className="layout-container">
-          <div className="text-center w-full max-w-full mx-auto mb-10 sm:mb-12">
-            <p className="font-sans-body text-[10.5px] sm:text-[12px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.25em] text-[#5D237A] mb-1.5 sm:mb-2 whitespace-nowrap">
+          <div className="text-center w-full max-w-full mx-auto mb-5 sm:mb-7">
+            <p className="font-sans-body text-[10.5px] sm:text-[12px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.25em] text-[#5D237A] mb-1 whitespace-nowrap">
               REFLECTIONS
             </p>
             <h2 className="font-serif-display text-[clamp(16px,3.5vw,40px)] font-medium uppercase tracking-[0.025em] sm:tracking-[0.03em] text-[#321048] whitespace-nowrap">
               STORIES OF INNER BALANCE
             </h2>
-            <div className="my-3 flex justify-center">
-              <WavyOrnament className="w-40 h-4 text-[#5D237A]" />
+            <div className="my-2 flex justify-center">
+              <WavyOrnament className="w-36 h-3.5 text-[#5D237A]" />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-7 lg:gap-8">
-            {testimonials.map((t) => (
-              <div
-                key={t.id}
-                className="p-7 rounded-[24px] bg-gradient-to-b from-white to-[#F5ECFC] border border-[#DFC9F2] shadow-[0_6px_22px_rgba(75,22,100,0.06)] flex flex-col justify-between"
-              >
-                <div>
-                  <Quote className="w-7 h-7 text-[#9C6BC2] mb-4 opacity-70" />
-                  <p className="text-[14.5px] leading-[1.7] text-[#381B4E] italic mb-6">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-                </div>
-                <div className="pt-4 border-t border-[#E6D4F6]">
-                  <p className="font-serif-display text-[19px] font-semibold text-[#2E1142]">
-                    {t.name}
-                  </p>
-                  <p className="text-[12.5px] text-[#64427D]">
-                    {t.role} &middot; {t.location}
-                  </p>
-                  <p className="text-[12px] font-medium text-[#5D237A] mt-1">
-                    {t.experienceName}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <TestimonialCarousel testimonials={testimonials} />
         </div>
       </section>
 
-      {/* 12. FINAL BOOKING CTA BANNER — Matches Experience Card Styling, Compact Burgundy Button & Subtle Divider */}
-      <section className="pt-4 pb-4 sm:pb-8 bg-gradient-to-b from-[#FAF7FD] to-[#EADBF8]/80">
+      {/* 12. FINAL BOOKING CTA BANNER — Exact 50% Height (6:1) Preserving Horizontal Landscape Artwork & Functional Overlaid Content */}
+      <section className="pt-2 pb-3 sm:pt-3 sm:pb-5 bg-gradient-to-b from-[#FAF7FD] to-[#EADBF8]/80">
         <div className="layout-container">
-          <div className="relative rounded-[24px] overflow-hidden border border-[#DFC4EC] shadow-[0_10px_30px_rgba(62,20,88,0.09)] bg-gradient-to-b from-[#FDEEF5] via-[#F4E8FB] to-[#E8D5F7]">
-            <div className="grid grid-cols-1 lg:grid-cols-12 items-center lg:min-h-[195px]">
-              <div className="hidden lg:block lg:col-span-3 h-full">
-                <img
-                  src={withBaseUrl('/assets/extracted/cta_exp_left.png')}
-                  alt="Waterfall and lotus blossom"
-                  referrerPolicy="no-referrer"
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="relative z-10 lg:col-span-6 py-6 px-4 sm:py-7 sm:px-6 lg:py-8 text-center flex flex-col items-center justify-center lg:bg-gradient-to-r lg:from-[#F5E9FB]/95 lg:via-[#FDF8FC] lg:to-[#F5E9FB]/95">
-                <p className="font-sans-body text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.25em] text-[#70283F]/85 mb-1.5">
-                  READY TO BEGIN?
-                </p>
-                <h2 className="font-serif-display text-[clamp(14.5px,4.2vw,24px)] sm:text-[26px] lg:text-[27px] xl:text-[30px] font-bold uppercase tracking-[0.02em] leading-[1.15] text-[#2F1041] whitespace-nowrap mb-3.5 sm:mb-4">
-                  BOOK YOUR HEALING EXPERIENCE
-                </h2>
-                <button
-                  type="button"
-                  onClick={() => onNavigate('book')}
-                  className="inline-flex items-center justify-center px-5 py-1.5 sm:px-6 sm:py-2 rounded-full bg-[#681E38] hover:bg-[#52152C] active:bg-[#461125] text-white font-sans-body text-[11.5px] sm:text-[13px] font-semibold tracking-[0.015em] shadow-[0_3px_10px_rgba(104,30,56,0.22)] transition-colors duration-200 cursor-pointer text-center"
-                >
-                  <span>Book a Session</span>
-                </button>
-              </div>
-              <div className="hidden lg:block lg:col-span-3 h-full">
-                <img
-                  src={withBaseUrl('/assets/extracted/cta_exp_right.png')}
-                  alt="Glowing lantern and purple blossoms"
-                  referrerPolicy="no-referrer"
-                  loading="lazy"
-                  className="w-full h-full object-cover object-right"
-                />
-              </div>
+          <div className="relative w-full aspect-[6/1] rounded-[16px] sm:rounded-[24px] overflow-hidden border border-[#DFC4EC] shadow-[0_10px_30px_rgba(62,20,88,0.09)] bg-gradient-to-r from-[#F9E7EA] via-[#FBF4EB] to-[#EDF1DF]">
+            <img
+              src={withBaseUrl(
+                '/assets/aistudio/Serene_Lotus_Singing_Bowl_Spa_Banner_2a949c88.png'
+              )}
+              alt="Serene sound healing sanctuary backdrop with brass singing bowl, pink lotus blossoms, stacked zen stones, and botanical leaves"
+              width={2172}
+              height={724}
+              referrerPolicy="no-referrer"
+              loading="lazy"
+              decoding="async"
+              className="block w-full h-full object-cover object-[50%_78%] select-none"
+            />
+
+            {/* Layered Functional Content Positioned in the Open Center Canvas (Zero Overlays or Image Filters) */}
+            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-[20%] text-center">
+              <p className="font-sans-body text-[clamp(6.5px,1.7vw,12px)] font-semibold uppercase tracking-[0.14em] sm:tracking-[0.25em] leading-none text-[#70283F]/90 mb-[2px] sm:mb-1.5 whitespace-nowrap">
+                READY TO BEGIN?
+              </p>
+              <h2 className="font-serif-display text-[clamp(8.5px,2.2vw,30px)] font-bold uppercase tracking-[0.02em] leading-[1.08] text-[#2F1041] whitespace-nowrap mb-[3px] sm:mb-2 lg:mb-3.5">
+                BOOK YOUR HEALING EXPERIENCE
+              </h2>
+              <button
+                type="button"
+                onClick={() => onNavigate('book')}
+                className={`inline-flex items-center justify-center px-[clamp(11px,2.8vw,30px)] py-[clamp(3px,0.75vw,10px)] rounded-full font-sans-body text-[clamp(8px,1.9vw,14px)] leading-none font-semibold tracking-[0.015em] cursor-pointer text-center whitespace-nowrap ${BUTTON_TOKENS.rosePlum}`}
+              >
+                <span>Book a Session</span>
+              </button>
             </div>
           </div>
 
           {/* Subtle Muted Gold & Light Burgundy Horizontal Divider separating CTA from Footer */}
           <div
-            className="mt-4 sm:mt-6 flex items-center justify-center gap-2.5 px-4"
+            className="mt-3 sm:mt-4 flex items-center justify-center gap-2.5 px-4"
             aria-hidden="true"
           >
             <span className="h-[1px] flex-1 max-w-[130px] sm:max-w-[220px] bg-gradient-to-r from-transparent via-[#C69A4A]/55 to-[#70283F]/40" />

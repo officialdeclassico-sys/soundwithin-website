@@ -45,34 +45,34 @@
   font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* Consistent full-viewport responsive container */
+/* Consistent full-viewport responsive container with compact horizontal gutters */
 .layout-container {
   width: 100%;
-  max-width: 1600px;
+  max-width: 1560px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
+  padding-left: 0.875rem;
+  padding-right: 0.875rem;
 }
 
 @media (min-width: 640px) {
   .layout-container {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 1.375rem;
+    padding-right: 1.375rem;
   }
 }
 
 @media (min-width: 1024px) {
   .layout-container {
-    padding-left: 3.5rem;
-    padding-right: 3.5rem;
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
   }
 }
 
 @media (min-width: 1280px) {
   .layout-container {
-    padding-left: 4.5rem;
-    padding-right: 4.5rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 }
 
@@ -99,7 +99,7 @@
 
 @media (max-width: 639px) {
   .hero-image {
-    height: clamp(174px, 45.5vw, 206px);
+    height: clamp(190px, 49vw, 224px);
     object-fit: cover;
   }
 }
@@ -112,3 +112,174 @@
 .bg-card-surface {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(246, 239, 253, 0.92) 100%);
 }
+
+/* ============================================================================
+   SOUNDWITHIN PASTEL FOOTER & CONTEXTUAL BUTTON GRADIENT DESIGN TOKENS
+   ============================================================================ */
+
+/* Global Footer Pastel Gradient — smooth blend of soft lavender, light violet, blush pink, warm peach & cream */
+.sw-footer-pastel-gradient {
+  background: linear-gradient(
+    112deg,
+    #E7D3F8 0%,
+    #F0DCF7 26%,
+    #FBE1EC 54%,
+    #FDE7D9 80%,
+    #FAF0EA 100%
+  );
+  border-top: 1px solid rgba(190, 152, 224, 0.55);
+}
+
+/* Shared Pill Button Interaction & Accessibility Base */
+.sw-btn-pill {
+  transition:
+    background 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+.sw-btn-pill:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.sw-btn-pill:active:not(:disabled) {
+  transform: translateY(0) scale(0.985);
+}
+
+.sw-btn-pill:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2.5px #FAF7FD, 0 0 0 4.5px rgba(93, 35, 122, 0.65);
+}
+
+/* 1. General CTA — Deep Violet to Plum (crisp white text) */
+.sw-btn-general {
+  background: linear-gradient(135deg, #632488 0%, #4B1664 52%, #390D52 100%);
+  color: #FFFFFF;
+  border: 1px solid rgba(164, 112, 208, 0.45);
+  box-shadow: 0 6px 18px rgba(68, 19, 94, 0.28);
+}
+
+.sw-btn-general:hover:not(:disabled) {
+  background: linear-gradient(135deg, #541B75 0%, #3E0F54 52%, #2F0845 100%);
+  box-shadow: 0 8px 22px rgba(68, 19, 94, 0.38);
+}
+
+/* 2. Experiences Primary CTA — Soft Violet to Lavender (crisp white text) */
+.sw-btn-soft-violet {
+  background: linear-gradient(135deg, #7D48B0 0%, #632D94 52%, #4E1B7B 100%);
+  color: #FFFFFF;
+  border: 1px solid rgba(182, 138, 224, 0.48);
+  box-shadow: 0 5px 16px rgba(84, 34, 132, 0.24);
+}
+
+.sw-btn-soft-violet:hover:not(:disabled) {
+  background: linear-gradient(135deg, #6E399F 0%, #552284 52%, #401368 100%);
+  box-shadow: 0 7px 20px rgba(84, 34, 132, 0.34);
+}
+
+/* 3. Sound Healing — Lavender to Violet (pastel satin gradient, deep violet text) */
+.sw-btn-lavender-violet {
+  background: linear-gradient(135deg, #EAD8FC 0%, #D5B3F6 54%, #C296ED 100%);
+  color: #2E0B42;
+  border: 1px solid rgba(154, 102, 212, 0.58);
+  box-shadow: 0 4px 14px rgba(102, 51, 153, 0.16);
+}
+
+.sw-btn-lavender-violet:hover:not(:disabled) {
+  background: linear-gradient(135deg, #E2CAFA 0%, #CA9FF3 54%, #B582E6 100%);
+  box-shadow: 0 6px 18px rgba(102, 51, 153, 0.25);
+}
+
+/* 4. Self-Awareness — Blush Pink to Soft Rose (pastel satin gradient, deep plum text) */
+.sw-btn-blush-rose {
+  background: linear-gradient(135deg, #FCE0EC 0%, #F7BDD7 54%, #EE9CC1 100%);
+  color: #3E0E2E;
+  border: 1px solid rgba(212, 118, 162, 0.58);
+  box-shadow: 0 4px 14px rgba(152, 56, 102, 0.16);
+}
+
+.sw-btn-blush-rose:hover:not(:disabled) {
+  background: linear-gradient(135deg, #FAD0E3 0%, #F3ACC9 54%, #E689B3 100%);
+  box-shadow: 0 6px 18px rgba(152, 56, 102, 0.25);
+}
+
+/* 5. Transformation — Peach to Warm Lavender (pastel satin gradient, deep plum text) */
+.sw-btn-peach-lavender {
+  background: linear-gradient(135deg, #FDE2CE 0%, #F6C8DB 52%, #DFBCF7 100%);
+  color: #340F49;
+  border: 1px solid rgba(190, 142, 224, 0.62);
+  box-shadow: 0 4px 14px rgba(114, 58, 152, 0.16);
+}
+
+.sw-btn-peach-lavender:hover:not(:disabled) {
+  background: linear-gradient(135deg, #FCD4BA 0%, #F1B6CF 52%, #D3A7F4 100%);
+  box-shadow: 0 6px 18px rgba(114, 58, 152, 0.25);
+}
+
+/* 6. Experiences Card Satin — Soft Violet to Lavender (pastel satin gradient, deep violet text) */
+.sw-btn-soft-violet-pastel {
+  background: linear-gradient(135deg, #E8D7FC 0%, #D9BEFA 54%, #CAA4F5 100%);
+  color: #2E0B42;
+  border: 1px solid rgba(154, 102, 212, 0.58);
+  box-shadow: 0 4px 14px rgba(102, 51, 153, 0.15);
+}
+
+.sw-btn-soft-violet-pastel:hover:not(:disabled) {
+  background: linear-gradient(135deg, #DFC8FB 0%, #CEACF8 54%, #BD90F0 100%);
+  box-shadow: 0 6px 18px rgba(102, 51, 153, 0.24);
+}
+
+/* 7. Nature Immersion Card — Mint Cream to Soft Lavender (pastel satin gradient, deep plum text) */
+.sw-btn-mint-lavender {
+  background: linear-gradient(135deg, #E4F7EE 0%, #E5DCF9 54%, #D3BEF5 100%);
+  color: #2B1240;
+  border: 1px solid rgba(144, 118, 206, 0.55);
+  box-shadow: 0 4px 14px rgba(74, 48, 128, 0.14);
+}
+
+.sw-btn-mint-lavender:hover:not(:disabled) {
+  background: linear-gradient(135deg, #D5F1E4 0%, #DACDF7 54%, #C6AAF1 100%);
+  box-shadow: 0 6px 18px rgba(74, 48, 128, 0.22);
+}
+
+/* 8. Sage Sanctuary Upcoming Retreat Card — Sage Cream to Soft Moss (pastel satin gradient, deep forest text) */
+.sw-btn-sage-moss {
+  background: linear-gradient(135deg, #E8EED0 0%, #D4DFAC 54%, #BFD08B 100%);
+  color: #1E3114;
+  border: 1px solid rgba(116, 138, 56, 0.55);
+  box-shadow: 0 4px 14px rgba(68, 86, 24, 0.16);
+}
+
+.sw-btn-sage-moss:hover:not(:disabled) {
+  background: linear-gradient(135deg, #DDE6BE 0%, #C7D697 54%, #B0C476 100%);
+  box-shadow: 0 6px 18px rgba(68, 86, 24, 0.24);
+}
+
+/* 9. Warm Rose-Plum CTA — Rose Berry to Deep Plum (for warm hero & burgundy CTA banners) */
+.sw-btn-rose-plum {
+  background: linear-gradient(135deg, #862952 0%, #6A1C4C 52%, #4D1247 100%);
+  color: #FFFFFF;
+  border: 1px solid rgba(214, 152, 168, 0.44);
+  box-shadow: 0 5px 16px rgba(90, 22, 64, 0.26);
+}
+
+.sw-btn-rose-plum:hover:not(:disabled) {
+  background: linear-gradient(135deg, #742145 0%, #5B1540 52%, #3F0D3A 100%);
+  box-shadow: 0 7px 20px rgba(90, 22, 64, 0.36);
+}
+
+/* 10. Secondary / Close / Outline-Replacement Pastel Pill (soft cream-lavender-blush, deep violet text) */
+.sw-btn-pastel-secondary {
+  background: linear-gradient(135deg, #FDF8FE 0%, #F4E9FC 54%, #FCEEF6 100%);
+  color: #36114E;
+  border: 1px solid rgba(145, 92, 194, 0.48);
+  box-shadow: 0 3px 10px rgba(75, 22, 100, 0.09);
+}
+
+.sw-btn-pastel-secondary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #F6ECFD 0%, #EBD7FA 54%, #F9DFED 100%);
+  box-shadow: 0 5px 14px rgba(75, 22, 100, 0.16);
+}
+

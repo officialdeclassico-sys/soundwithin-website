@@ -7,6 +7,7 @@ import {
   X,
 } from 'lucide-react';
 import {ExperienceBadgeIcon, SproutLeafIcon} from './BrandIcons';
+import {BUTTON_TOKENS} from '../utils/buttonThemes';
 import type {Experience} from '../types';
 
 interface ExperienceDetailModalProps {
@@ -43,9 +44,9 @@ export function ExperienceDetailModal({
       aria-modal="true"
       aria-labelledby="exp-detail-title"
     >
-      <div className="relative w-full max-w-[960px] max-h-[90vh] overflow-y-auto scrollbar-hidden rounded-3xl bg-[#FAF6FE] border border-[#D7BEEF] shadow-[0_24px_60px_rgba(32,10,48,0.45)] text-[#2A123F]">
+      <div className="relative w-full max-w-[920px] max-h-[90vh] overflow-y-auto scrollbar-hidden rounded-3xl bg-[#FAF6FE] border border-[#D7BEEF] shadow-[0_24px_60px_rgba(32,10,48,0.45)] text-[#2A123F]">
         {/* Top Hero Image Header */}
-        <div className="relative h-56 sm:h-64 w-full overflow-hidden">
+        <div className="relative h-44 sm:h-52 w-full overflow-hidden">
           <img
             src={experience.image}
             alt={experience.name}
@@ -58,14 +59,14 @@ export function ExperienceDetailModal({
             type="button"
             onClick={onClose}
             aria-label="Close experience details"
-            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 hover:bg-white text-[#3B1254] flex items-center justify-center shadow-lg cursor-pointer transition-transform hover:scale-105"
+            className="absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-gradient-to-br from-white/95 to-[#F3E8FC]/95 hover:from-white hover:to-[#EBD8FA] border border-white/80 text-[#3B1254] flex items-center justify-center shadow-lg cursor-pointer transition-all hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5D237A]"
           >
             <X className="w-5 h-5" />
           </button>
 
-          <div className="absolute bottom-5 left-6 right-6 flex items-end justify-between gap-4">
+          <div className="absolute bottom-4 left-5 right-5 flex items-end justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 text-[#E5CFF8] text-xs uppercase tracking-[0.2em] mb-1.5">
+              <div className="inline-flex items-center gap-2 text-[#E5CFF8] text-xs uppercase tracking-[0.2em] mb-1">
                 <ExperienceBadgeIcon
                   type={experience.iconType}
                   className="w-4 h-4 text-[#E5CFF8]"
@@ -74,7 +75,7 @@ export function ExperienceDetailModal({
               </div>
               <h2
                 id="exp-detail-title"
-                className="font-serif-display text-2xl sm:text-4xl font-semibold text-white"
+                className="font-serif-display text-2xl sm:text-3xl font-semibold text-white"
               >
                 {experience.name}
               </h2>
@@ -83,10 +84,10 @@ export function ExperienceDetailModal({
         </div>
 
         {/* Modal Body */}
-        <div className="p-6 sm:p-8 space-y-7">
+        <div className="p-4.5 sm:p-6 space-y-4.5 sm:space-y-5">
           {/* Metadata Strip */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-[#E3CFF5] text-[14px] text-[#431D60]">
-            <div className="flex flex-wrap items-center gap-6">
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-3.5 border-b border-[#E3CFF5] text-[13.5px] text-[#431D60]">
+            <div className="flex flex-wrap items-center gap-5">
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-[#6B2D8F]" />
                 <span className="font-medium">Duration:</span>
@@ -111,24 +112,24 @@ export function ExperienceDetailModal({
 
           {/* Full Description */}
           <div>
-            <h3 className="font-serif-display text-xl font-semibold text-[#3A1352] mb-2">
+            <h3 className="font-serif-display text-xl font-semibold text-[#3A1352] mb-1.5">
               Overview
             </h3>
-            <p className="text-[15px] leading-relaxed text-[#3D2252]">
+            <p className="text-[14.5px] leading-relaxed text-[#3D2252]">
               {experience.fullDescription}
             </p>
           </div>
 
           {/* Two Column Grid: Objectives & What to Expect */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-5 rounded-2xl bg-[#F3EAFB]/80 border border-[#DFC9F2]">
-              <h3 className="font-serif-display text-xl font-semibold text-[#3A1352] mb-3 flex items-center gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-4 rounded-2xl bg-[#F3EAFB]/80 border border-[#DFC9F2]">
+              <h3 className="font-serif-display text-lg font-semibold text-[#3A1352] mb-2 flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-[#6B2D8F]" />
                 <span>Session Objectives</span>
               </h3>
-              <ul className="space-y-2.5 text-[14px] text-[#3D2252]">
+              <ul className="space-y-2 text-[13.5px] text-[#3D2252]">
                 {experience.objectives.map((obj, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5">
+                  <li key={idx} className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#5D237A] shrink-0 mt-0.5" />
                     <span>{obj}</span>
                   </li>
@@ -136,14 +137,14 @@ export function ExperienceDetailModal({
               </ul>
             </div>
 
-            <div className="p-5 rounded-2xl bg-[#F3EAFB]/80 border border-[#DFC9F2]">
-              <h3 className="font-serif-display text-xl font-semibold text-[#3A1352] mb-3 flex items-center gap-2">
+            <div className="p-4 rounded-2xl bg-[#F3EAFB]/80 border border-[#DFC9F2]">
+              <h3 className="font-serif-display text-lg font-semibold text-[#3A1352] mb-2 flex items-center gap-2">
                 <Compass className="w-4 h-4 text-[#6B2D8F]" />
                 <span>What to Expect</span>
               </h3>
-              <ul className="space-y-2.5 text-[14px] text-[#3D2252]">
+              <ul className="space-y-2 text-[13.5px] text-[#3D2252]">
                 {experience.whatToExpect.map((step, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5">
+                  <li key={idx} className="flex items-start gap-2">
                     <span className="w-5 h-5 rounded-full bg-[#4B1664] text-white text-xs flex items-center justify-center shrink-0 mt-0.5 tabular-nums">
                       {idx + 1}
                     </span>
@@ -155,11 +156,11 @@ export function ExperienceDetailModal({
           </div>
 
           {/* Preparation Instructions */}
-          <div className="p-5 rounded-2xl bg-white border border-[#E2CEF4]">
-            <h3 className="font-serif-display text-xl font-semibold text-[#3A1352] mb-2.5">
+          <div className="p-4 rounded-2xl bg-white border border-[#E2CEF4]">
+            <h3 className="font-serif-display text-lg font-semibold text-[#3A1352] mb-2">
               Preparation Instructions
             </h3>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-[13.5px] text-[#4A2C60]">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[13.5px] text-[#4A2C60]">
               {experience.preparationInstructions.map((prep, idx) => (
                 <li key={idx} className="flex items-start gap-2">
                   <span className="text-[#6B2D8F] font-bold">&bull;</span>
@@ -170,22 +171,22 @@ export function ExperienceDetailModal({
           </div>
 
           {/* Action Footer */}
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="pt-1 flex flex-col sm:flex-row items-center justify-between gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="w-full sm:w-auto px-6 py-2.5 rounded-full border border-[#6B308B] text-[#3B1254] text-[14px] font-medium hover:bg-[#F1E4FA] transition-colors cursor-pointer text-center"
+              className={`w-full sm:w-auto px-5 py-2 rounded-full text-[13.5px] font-medium cursor-pointer text-center whitespace-nowrap ${BUTTON_TOKENS.secondary}`}
             >
               Close Details
             </button>
 
-            <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-end">
+            <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto justify-end">
               {experience.availableFormats.map((fmt) => (
                 <button
                   key={fmt}
                   type="button"
                   onClick={() => onBookExperience(experience.id, fmt)}
-                  className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3 rounded-full bg-[#4B1664] hover:bg-[#3A0E50] text-white text-[14px] font-medium shadow-[0_6px_18px_rgba(75,22,100,0.35)] transition-all cursor-pointer text-center"
+                  className={`w-full sm:w-auto inline-flex items-center justify-center px-6 py-2.5 rounded-full text-[13.5px] font-medium cursor-pointer text-center whitespace-nowrap ${BUTTON_TOKENS.general}`}
                 >
                   <span>Book {fmt} Session</span>
                 </button>

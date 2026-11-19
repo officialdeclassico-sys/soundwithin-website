@@ -513,6 +513,33 @@ export const STATIC_TESTIMONIALS: Testimonial[] = [
     quote:
       'The combination of gentle self-inquiry and vibrational healing helped me release emotional blocks that talk alone could not reach. Truly transformative work.',
   },
+  {
+    id: 'test-4',
+    name: 'Siddharth Mehta',
+    role: 'Creative Director',
+    location: 'Hyderabad',
+    experienceName: 'Sound Bath Journey',
+    quote:
+      'The multi-instrument sound bath felt like a deep energetic reset. By the end of the ninety minutes, my nervous system felt completely unburdened and my sleep improved immediately.',
+  },
+  {
+    id: 'test-5',
+    name: 'Kavya Subramanian',
+    role: 'Yoga Educator & Wellness Coach',
+    location: 'Chennai',
+    experienceName: 'Chakra Sound Alignment',
+    quote:
+      'Every frequency was offered with such intuition and reverence. I could physically feel the vibrations clearing tension through my chest and shoulders, leaving me centred and radiant.',
+  },
+  {
+    id: 'test-6',
+    name: 'Vikramaditya Joshi',
+    role: 'Entrepreneur & Founder',
+    location: 'Delhi',
+    experienceName: 'Transformation Retreat',
+    quote:
+      'Five days immersed in forest silence, guided meditation, and evening sound baths shifted my entire perspective on life and work. I returned home with lasting clarity and inner peace.',
+  },
 ];
 
 export const STATIC_SETTINGS: WebsiteSettings = {

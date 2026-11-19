@@ -1,6 +1,7 @@
 import React from 'react';
 import {Calendar, Clock, Layers, MapPin, Video} from 'lucide-react';
 import {ExperienceBadgeIcon} from './BrandIcons';
+import {BUTTON_TOKENS} from '../utils/buttonThemes';
 import type {Experience} from '../types';
 
 interface BookExperienceCardProps {
@@ -113,7 +114,7 @@ export function BookExperienceCard({
     >
       {/* Top Image Section (~38% of card) with Curved Wave Divider & Upper-Right Circular Purple Badge */}
       <div>
-        <div className="relative h-48 sm:h-52 w-full overflow-hidden">
+        <div className="relative h-42 sm:h-46 w-full overflow-hidden">
           <img
             src={experience.image}
             alt={experience.name}
@@ -124,18 +125,18 @@ export function BookExperienceCard({
 
           {/* Circular Purple Experience Icon Badge in Upper-Right Corner */}
           <div
-            className="absolute top-3.5 right-3.5 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-gradient-to-b from-[#69278E] to-[#451060] border-[1.5px] border-white/85 shadow-[0_4px_14px_rgba(32,8,48,0.45)] flex items-center justify-center text-white"
+            className="absolute top-3 right-3 z-20 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-b from-[#69278E] to-[#451060] border-[1.5px] border-white/85 shadow-[0_4px_14px_rgba(32,8,48,0.45)] flex items-center justify-center text-white"
             aria-hidden="true"
           >
             <ExperienceBadgeIcon
               type={experience.iconType}
-              className="w-6 h-6 text-white"
+              className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-white"
             />
           </div>
 
           {/* Smooth Layered S-Curve Wave Transition Between Image and Content */}
           <div
-            className="absolute -bottom-[1px] inset-x-0 h-11 sm:h-12 pointer-events-none select-none z-10"
+            className="absolute -bottom-[1px] inset-x-0 h-10 sm:h-11 pointer-events-none select-none z-10"
             aria-hidden="true"
           >
             <svg
@@ -166,23 +167,23 @@ export function BookExperienceCard({
         </div>
 
         {/* Content Section: Heading, Description & Right Botanical Sprig */}
-        <div className="relative px-5 sm:px-6 pt-1">
-          <BotanicalSprigDecoration className="absolute right-2 -top-2 w-12 h-20 sm:w-14 sm:h-24 text-[#C5A0E6]/65 pointer-events-none select-none" />
+        <div className="relative px-4 sm:px-5 pt-0.5">
+          <BotanicalSprigDecoration className="absolute right-1.5 -top-2 w-11 h-18 sm:w-12 sm:h-20 text-[#C5A0E6]/65 pointer-events-none select-none" />
 
-          <h3 className="font-serif-display text-[23px] sm:text-[26px] font-bold text-[#2D0E41] leading-[1.16] tracking-[0.01em] mb-1.5 pr-8">
+          <h3 className="font-serif-display text-[21px] sm:text-[24px] font-bold text-[#2D0E41] leading-[1.16] tracking-[0.01em] mb-1 pr-7">
             {experience.name}
           </h3>
 
-          <p className="font-sans-body text-[13px] sm:text-[13.5px] text-[#3B1E54] leading-[1.48] pr-7 min-h-[40px]">
+          <p className="font-sans-body text-[12.5px] sm:text-[13px] text-[#3B1E54] leading-[1.45] pr-6 min-h-[36px]">
             {experience.shortDescription}
           </p>
         </div>
       </div>
 
       {/* Bottom Interactive Section: Session Info Row, Format Toggle & Primary CTA */}
-      <div className="px-5 sm:px-6 pt-3.5 pb-5 sm:pb-6 flex flex-col justify-end">
+      <div className="px-4 sm:px-5 pt-2.5 pb-4 sm:pb-4.5 flex flex-col justify-end">
         {/* Horizontal Session Information Row */}
-        <div className="grid grid-cols-3 items-center py-2.5 mb-4 border-y border-[#E3CFF5]/90">
+        <div className="grid grid-cols-3 items-center py-2 mb-3 border-y border-[#E3CFF5]/90">
           {/* 1. Duration */}
           <div className="flex items-center gap-1.5 sm:gap-2 pr-1.5">
             <Clock className="w-4 h-4 sm:w-[17px] sm:h-[17px] text-[#3A1352] shrink-0" />
@@ -231,7 +232,7 @@ export function BookExperienceCard({
         <div
           role="group"
           aria-label={`Session format for ${experience.name}`}
-          className="w-full max-w-[310px] mx-auto mb-4 rounded-full border border-[#6C348D]/85 bg-[#FAF6FE] p-0.5 grid grid-cols-2 items-center shadow-2xs"
+          className="w-full max-w-[300px] mx-auto mb-3 rounded-full border border-[#6C348D]/85 bg-[#FAF6FE] p-0.5 grid grid-cols-2 items-center shadow-2xs"
         >
           {/* In-Person Option (Left) */}
           <button
@@ -239,10 +240,10 @@ export function BookExperienceCard({
             disabled={!supportsInPerson}
             aria-pressed={activeFormat === 'In-Person'}
             onClick={() => onFormatChange(experience.id, 'In-Person')}
-            className={`inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-full font-sans-body text-[12px] sm:text-[12.5px] font-semibold transition-all duration-200 whitespace-nowrap ${
+            className={`inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-full font-sans-body text-[12px] sm:text-[12.5px] font-semibold transition-all duration-200 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5D237A]/60 ${
               activeFormat === 'In-Person'
-                ? 'bg-gradient-to-r from-[#481162] via-[#621C82] to-[#481162] text-white shadow-[0_2px_8px_rgba(72,17,98,0.35)] cursor-pointer'
-                : 'bg-transparent text-[#321048] hover:bg-[#EFE2FA]/70 cursor-pointer'
+                ? 'bg-gradient-to-r from-[#7D48B0] via-[#632D94] to-[#4E1B7B] text-white shadow-[0_2px_10px_rgba(84,34,132,0.3)] cursor-pointer'
+                : 'bg-transparent text-[#321048] hover:bg-gradient-to-r hover:from-[#F3E9FC] hover:to-[#FCECF4] cursor-pointer'
             }`}
           >
             <MapPin
@@ -259,10 +260,10 @@ export function BookExperienceCard({
               type="button"
               aria-pressed={activeFormat === 'Online'}
               onClick={() => onFormatChange(experience.id, 'Online')}
-              className={`inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-full font-sans-body text-[12px] sm:text-[12.5px] font-semibold transition-all duration-200 whitespace-nowrap ${
+              className={`inline-flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-full font-sans-body text-[12px] sm:text-[12.5px] font-semibold transition-all duration-200 whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5D237A]/60 ${
                 activeFormat === 'Online'
-                  ? 'bg-gradient-to-r from-[#481162] via-[#621C82] to-[#481162] text-white shadow-[0_2px_8px_rgba(72,17,98,0.35)] cursor-pointer'
-                  : 'bg-transparent text-[#321048] hover:bg-[#EFE2FA]/70 cursor-pointer'
+                  ? 'bg-gradient-to-r from-[#7D48B0] via-[#632D94] to-[#4E1B7B] text-white shadow-[0_2px_10px_rgba(84,34,132,0.3)] cursor-pointer'
+                  : 'bg-transparent text-[#321048] hover:bg-gradient-to-r hover:from-[#F3E9FC] hover:to-[#FCECF4] cursor-pointer'
               }`}
             >
               <Video
@@ -282,11 +283,11 @@ export function BookExperienceCard({
           )}
         </div>
 
-        {/* Primary CTA: Book This Experience (Full-Width, Centered, Prominent, No Arrow) */}
+        {/* Primary CTA: Book This Experience (Soft Violet to Lavender Gradient) */}
         <button
           type="button"
           onClick={() => onBookExperience(experience, activeFormat)}
-          className="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-[#420E5B] via-[#5F1C7E] to-[#420E5B] hover:from-[#340949] hover:via-[#50156B] hover:to-[#340949] text-white font-sans-body text-[15px] sm:text-[16px] font-semibold tracking-[0.01em] shadow-[0_6px_20px_rgba(66,14,91,0.38)] hover:shadow-[0_8px_24px_rgba(66,14,91,0.52)] transition-all duration-200 flex items-center justify-center text-center cursor-pointer"
+          className={`w-full py-2.5 px-5 rounded-full font-sans-body text-[14px] sm:text-[14.5px] font-semibold tracking-[0.01em] flex items-center justify-center text-center cursor-pointer whitespace-nowrap ${BUTTON_TOKENS.softViolet}`}
         >
           <span>Book This Experience</span>
         </button>

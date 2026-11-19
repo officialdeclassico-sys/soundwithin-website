@@ -126,7 +126,14 @@ export default function App() {
       }
       if (data.availability) setAvailability(data.availability);
       setBookedSlotsByDate(data.bookedSlotsByDate || {});
-      if (data.testimonials?.length) setTestimonials(data.testimonials);
+      if (data.testimonials?.length) {
+        const existingIds = new Set(data.testimonials.map((t) => t.id));
+        const merged = [
+          ...data.testimonials,
+          ...STATIC_TESTIMONIALS.filter((t) => !existingIds.has(t.id)),
+        ];
+        setTestimonials(merged);
+      }
       if (data.settings) setSettings(data.settings);
     } catch {
       // Keep static fallback state if server is unreachable
@@ -139,15 +146,19 @@ export default function App() {
     fetchBootstrapData();
   }, [fetchBootstrapData]);
 
-  // Listen to hashchange for direct URL navigation, refresh, and browser back/forward on GitHub Pages
+  // Listen to hashchange and popstate for direct URL navigation, refresh, and browser back/forward
   useEffect(() => {
-    const onHashChange = () => {
+    const onLocationChange = () => {
       const route = getRouteFromLocation();
       setCurrentPage(route);
       document.title = PAGE_TITLES[route] || PAGE_TITLES.home;
     };
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
+    window.addEventListener('hashchange', onLocationChange);
+    window.addEventListener('popstate', onLocationChange);
+    return () => {
+      window.removeEventListener('hashchange', onLocationChange);
+      window.removeEventListener('popstate', onLocationChange);
+    };
   }, []);
 
   // Sync page title & URL hash & scroll to top on navigation

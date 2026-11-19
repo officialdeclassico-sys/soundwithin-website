@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useId} from 'react';
 
 export function LotusLogoIcon({className = 'w-10 h-7'}: {className?: string}) {
   return (
@@ -94,40 +94,56 @@ export function SoundwaveIcon({className = 'w-7 h-7'}: {className?: string}) {
   );
 }
 
-export function LotusLineIcon({className = 'w-7 h-7'}: {className?: string}) {
+export function LotusLineIcon({
+  className = 'w-7 h-7',
+  gradientStops,
+}: {
+  className?: string;
+  gradientStops?: [string, string];
+}) {
+  const gradId = useId();
+  const strokePaint = gradientStops ? `url(#${gradId})` : 'currentColor';
   return (
     <svg viewBox="0 0 36 28" fill="none" className={className} aria-hidden="true">
+      {gradientStops && (
+        <defs>
+          <linearGradient id={gradId} x1="2" y1="3" x2="34" y2="25" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor={gradientStops[0]} />
+            <stop offset="100%" stopColor={gradientStops[1]} />
+          </linearGradient>
+        </defs>
+      )}
       <path
         d="M18 3C14.5 8.5 13.5 15 18 23C22.5 15 21.5 8.5 18 3Z"
-        stroke="currentColor"
+        stroke={strokePaint}
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M17 22.5C10.5 19 7.5 12.5 10 7.5C13.5 9.5 15.5 14 17 22.5Z"
-        stroke="currentColor"
+        stroke={strokePaint}
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M19 22.5C25.5 19 28.5 12.5 26 7.5C22.5 9.5 20.5 14 19 22.5Z"
-        stroke="currentColor"
+        stroke={strokePaint}
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M15.5 23.5C8.5 22.5 3.5 18 3 13C7.5 13.5 11.5 17 15.5 23.5Z"
-        stroke="currentColor"
+        stroke={strokePaint}
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M20.5 23.5C27.5 22.5 32.5 18 33 13C28.5 13.5 24.5 17 20.5 23.5Z"
-        stroke="currentColor"
+        stroke={strokePaint}
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -136,35 +152,67 @@ export function LotusLineIcon({className = 'w-7 h-7'}: {className?: string}) {
   );
 }
 
-export function ZenStonesIcon({className = 'w-7 h-7'}: {className?: string}) {
+export function ZenStonesIcon({
+  className = 'w-7 h-7',
+  gradientStops,
+}: {
+  className?: string;
+  gradientStops?: [string, string];
+}) {
+  const gradId = useId();
+  const strokePaint = gradientStops ? `url(#${gradId})` : 'currentColor';
   return (
     <svg viewBox="0 0 32 32" fill="none" className={className} aria-hidden="true">
-      <ellipse cx="16" cy="8.5" rx="4.5" ry="2.8" stroke="currentColor" strokeWidth="1.8" />
-      <ellipse cx="16" cy="15.5" rx="7.5" ry="3.5" stroke="currentColor" strokeWidth="1.8" />
-      <ellipse cx="16" cy="23.5" rx="10.5" ry="4" stroke="currentColor" strokeWidth="1.8" />
+      {gradientStops && (
+        <defs>
+          <linearGradient id={gradId} x1="4" y1="5" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor={gradientStops[0]} />
+            <stop offset="100%" stopColor={gradientStops[1]} />
+          </linearGradient>
+        </defs>
+      )}
+      <ellipse cx="16" cy="8.5" rx="4.5" ry="2.8" stroke={strokePaint} strokeWidth="1.8" />
+      <ellipse cx="16" cy="15.5" rx="7.5" ry="3.5" stroke={strokePaint} strokeWidth="1.8" />
+      <ellipse cx="16" cy="23.5" rx="10.5" ry="4" stroke={strokePaint} strokeWidth="1.8" />
     </svg>
   );
 }
 
-export function SproutLeafIcon({className = 'w-7 h-7'}: {className?: string}) {
+export function SproutLeafIcon({
+  className = 'w-7 h-7',
+  gradientStops,
+}: {
+  className?: string;
+  gradientStops?: [string, string];
+}) {
+  const gradId = useId();
+  const strokePaint = gradientStops ? `url(#${gradId})` : 'currentColor';
   return (
     <svg viewBox="0 0 32 32" fill="none" className={className} aria-hidden="true">
+      {gradientStops && (
+        <defs>
+          <linearGradient id={gradId} x1="4" y1="8" x2="28" y2="26" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor={gradientStops[0]} />
+            <stop offset="100%" stopColor={gradientStops[1]} />
+          </linearGradient>
+        </defs>
+      )}
       <path
         d="M16 26V14"
-        stroke="currentColor"
+        stroke={strokePaint}
         strokeWidth="1.8"
         strokeLinecap="round"
       />
       <path
         d="M16 21C9 21 5 15.5 5 9C11.5 9 16 13.5 16 21Z"
-        stroke="currentColor"
+        stroke={strokePaint}
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M16 21C23 21 27 15.5 27 9C20.5 9 16 13.5 16 21Z"
-        stroke="currentColor"
+        stroke={strokePaint}
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -187,12 +235,28 @@ export function CrescentMoonIcon({className = 'w-7 h-7'}: {className?: string}) 
   );
 }
 
-export function InfinityLineIcon({className = 'w-8 h-7'}: {className?: string}) {
+export function InfinityLineIcon({
+  className = 'w-8 h-7',
+  gradientStops,
+}: {
+  className?: string;
+  gradientStops?: [string, string];
+}) {
+  const gradId = useId();
+  const strokePaint = gradientStops ? `url(#${gradId})` : 'currentColor';
   return (
     <svg viewBox="0 0 36 24" fill="none" className={className} aria-hidden="true">
+      {gradientStops && (
+        <defs>
+          <linearGradient id={gradId} x1="2" y1="6" x2="34" y2="18" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor={gradientStops[0]} />
+            <stop offset="100%" stopColor={gradientStops[1]} />
+          </linearGradient>
+        </defs>
+      )}
       <path
         d="M18 12C15.2 8.2 12.2 6.5 9 6.5C5.2 6.5 2.5 9 2.5 12C2.5 15 5.2 17.5 9 17.5C12.2 17.5 15.2 15.8 18 12ZM18 12C20.8 15.8 23.8 17.5 27 17.5C30.8 17.5 33.5 15 33.5 12C33.5 9 30.8 6.5 27 6.5C23.8 6.5 20.8 8.2 18 12Z"
-        stroke="currentColor"
+        stroke={strokePaint}
         strokeWidth="1.9"
         strokeLinecap="round"
         strokeLinejoin="round"

@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
 import {Edit3, X} from 'lucide-react';
 import {HeroBanner} from '../components/HeroBanner';
+import {InfiniteHorizontalCarousel} from '../components/InfiniteHorizontalCarousel';
+import {BottomPromoBanner} from '../components/BottomPromoBanner';
 import {withBaseUrl} from '../utils/assetUrl';
+import {BUTTON_TOKENS} from '../utils/buttonThemes';
 import {IS_STATIC_PRESENTATION} from '../data/staticContent';
 import {
   InfinityLineIcon,
@@ -83,12 +86,12 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
       />
 
       {/* OUR PURPOSE / WHY SOUNDWITHIN? */}
-      <section id="about-our-purpose" className="py-12 sm:py-16 bg-[#FAF7FD]">
+      <section id="about-our-purpose" className="py-7 sm:py-10 lg:py-12 bg-[#FAF7FD]">
         <div className="layout-container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
             {/* Left Organic Blob Image */}
             <div className="lg:col-span-6 flex justify-center">
-              <div className="w-full max-w-[560px]">
+              <div className="w-full max-w-[500px]">
                 <img
                   src={withBaseUrl('/assets/extracted/about_why_soundwithin.png')}
                   alt="Woman peacefully looking up into sunlit trees framed by purple blossoms"
@@ -99,14 +102,14 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
             </div>
 
             {/* Right Purpose Content with Left Hairline Divider */}
-            <div className="lg:col-span-6 lg:pl-12 lg:border-l lg:border-[#D5B9EC] space-y-4">
+            <div className="lg:col-span-6 lg:pl-8 lg:border-l lg:border-[#D5B9EC] space-y-2.5 sm:space-y-3">
               <p className="font-sans-body text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.26em] text-[#3A1352] whitespace-nowrap">
                 OUR PURPOSE
               </p>
               <h2 className="font-serif-display text-[clamp(20px,3.6vw,42px)] font-medium uppercase tracking-[0.025em] sm:tracking-[0.03em] text-[#321048] leading-tight whitespace-nowrap">
                 WHY SOUNDWITHIN?
               </h2>
-              <p className="font-sans-body text-[15px] sm:text-[16px] leading-[1.75] text-[#2E1442] max-w-[600px]">
+              <p className="font-sans-body text-[14.5px] sm:text-[15.5px] leading-[1.68] text-[#2E1442] max-w-[600px]">
                 SoundWithin was born from a deep belief that healing is not just
                 about the body, but about realigning the mind, emotions and
                 energy with your true self. We create immersive, nature-connected
@@ -118,46 +121,45 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
         </div>
       </section>
 
-      {/* OUR PHILOSOPHY WAVY LAVENDER BAND */}
-      <section className="relative py-14 sm:py-16 bg-gradient-to-b from-[#EFE3FA] via-[#F4ECFC] to-[#EFE3FA] border-y border-[#E3CFF5]">
+      {/* OUR PHILOSOPHY WAVY LAVENDER BAND — Continuous Infinite Horizontal Scrolling */}
+      <section className="relative py-7 sm:py-9 bg-gradient-to-b from-[#EFE3FA] via-[#F4ECFC] to-[#EFE3FA] border-y border-[#E3CFF5] overflow-hidden">
         <div className="layout-container">
-          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-10">
-            <span className="w-12 sm:w-24 h-[1px] bg-[#B491D1]" />
+          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+            <span className="w-12 sm:w-20 h-[1px] bg-[#B491D1]" />
             <h2 className="font-sans-body text-[11.5px] sm:text-[12.5px] font-semibold uppercase tracking-[0.24em] sm:tracking-[0.28em] text-[#321048] whitespace-nowrap">
               OUR PHILOSOPHY
             </h2>
-            <span className="w-12 sm:w-24 h-[1px] bg-[#B491D1]" />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-8">
-            {philosophyItems.map((item, idx) => (
-              <div
-                key={item.title}
-                className={`flex flex-col items-center text-center px-6 ${
-                  idx < philosophyItems.length - 1
-                    ? 'lg:border-r lg:border-[#C5A3E0]'
-                    : ''
-                }`}
-              >
-                <div className="mb-3">{item.icon}</div>
-                <h3 className="font-serif-display text-[22px] font-semibold text-[#2E1142] mb-1.5 whitespace-nowrap">
-                  {item.title}
-                </h3>
-                <p className="font-sans-body text-[13.5px] text-[#3F2157] leading-relaxed max-w-[230px]">
-                  {item.description}
-                </p>
-              </div>
-            ))}
+            <span className="w-12 sm:w-20 h-[1px] bg-[#B491D1]" />
           </div>
         </div>
+
+        <InfiniteHorizontalCarousel
+          items={philosophyItems}
+          getItemKey={(item, idx) => `${item.title}-${idx}`}
+          dividerClassName="h-20 sm:h-24 w-[1px] bg-[#C5A3E0]/75 shrink-0"
+          className="py-1"
+          renderItem={(item) => (
+            <div className="flex flex-col items-center text-center px-6 sm:px-8 lg:px-10 w-[260px] sm:w-[290px] lg:w-[315px] shrink-0">
+              <div className="mb-2 flex items-center justify-center">
+                {item.icon}
+              </div>
+              <h3 className="font-serif-display text-[20px] sm:text-[21px] font-semibold text-[#2E1142] mb-1 whitespace-nowrap">
+                {item.title}
+              </h3>
+              <p className="font-sans-body text-[13px] sm:text-[13.5px] text-[#3F2157] leading-relaxed max-w-[230px]">
+                {item.description}
+              </p>
+            </div>
+          )}
+        />
       </section>
 
       {/* MEET THE FOUNDER / THE HEART BEHIND SOUNDWITHIN */}
-      <section className="py-14 sm:py-18 bg-[#FAF7FD]">
+      <section className="py-7 sm:py-10 lg:py-12 bg-[#FAF7FD]">
         <div className="layout-container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
             {/* Left Column */}
-            <div className="lg:col-span-5 space-y-4">
+            <div className="lg:col-span-5 space-y-3">
               <p className="font-sans-body text-[11px] sm:text-[11.5px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.25em] text-[#3A1352] whitespace-nowrap">
                 MEET THE FOUNDER
               </p>
@@ -165,17 +167,17 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
                 {settings.founderHeadline || 'THE HEART BEHIND SOUNDWITHIN'}
               </h2>
               <div className="w-14 h-[2px] bg-[#5D237A]" />
-              <p className="font-sans-body text-[15px] sm:text-[15.5px] leading-[1.72] text-[#2E1442] pt-1 max-w-[540px]">
+              <p className="font-sans-body text-[14.5px] sm:text-[15px] leading-[1.68] text-[#2E1442] pt-0.5 max-w-[540px]">
                 {settings.founderBioShort}
               </p>
               <p className="text-[12px] text-[#6B4A8C] italic whitespace-nowrap">
                 {settings.founderNoteLabel}
               </p>
-              <div className="pt-2">
+              <div className="pt-1">
                 <button
                   type="button"
                   onClick={() => setShowFounderModal(true)}
-                  className="inline-flex items-center justify-center px-8 py-2.5 rounded-full bg-white hover:bg-[#4B1664] text-[#3A1352] hover:text-white border border-[#5D237A] text-[14px] font-medium transition-all cursor-pointer shadow-xs text-center"
+                  className={`inline-flex items-center justify-center px-7 py-2 rounded-full text-[13.5px] font-semibold cursor-pointer text-center whitespace-nowrap ${BUTTON_TOKENS.blushRose}`}
                 >
                   <span>My Journey</span>
                 </button>
@@ -184,7 +186,7 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
 
             {/* Right Column: Singing Bowls Waterfall Blob Image */}
             <div className="lg:col-span-7 flex justify-center lg:justify-end">
-              <div className="w-full max-w-[740px]">
+              <div className="w-full max-w-[650px]">
                 <img
                   src={withBaseUrl('/assets/extracted/about_founder_bowls.png')}
                   alt="Four Himalayan singing bowls, glowing candle, and amethyst crystal before a waterfall"
@@ -196,79 +198,65 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
             </div>
           </div>
 
-          {/* OUR APPROACH ROUNDED BAR */}
-          <div className="mt-12 rounded-[26px] bg-gradient-to-r from-[#EFE4FA] via-[#F6EFFD] to-[#EFE4FA] border border-[#D8C0EE] p-6 sm:p-8 shadow-[0_6px_22px_rgba(75,22,100,0.06)]">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-              <div className="lg:col-span-3 text-center lg:text-left lg:border-r lg:border-[#C5A3E0] lg:pr-6">
-                <h3 className="font-serif-display text-[clamp(20px,2.1vw,26px)] font-medium uppercase tracking-[0.05em] text-[#321048] leading-tight whitespace-nowrap">
+          {/* OUR APPROACH ROUNDED BAR — Continuous Infinite Horizontal Scrolling */}
+          <div className="mt-7 sm:mt-9 rounded-[24px] bg-gradient-to-r from-[#EFE4FA] via-[#F6EFFD] to-[#EFE4FA] border border-[#D8C0EE] py-4.5 px-4 sm:py-6 sm:px-6 shadow-[0_6px_22px_rgba(75,22,100,0.06)] overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-center">
+              <div className="lg:col-span-3 text-center lg:text-left lg:border-r lg:border-[#C5A3E0] lg:pr-5">
+                <h3 className="font-serif-display text-[clamp(19px,2vw,25px)] font-medium uppercase tracking-[0.05em] text-[#321048] leading-tight whitespace-nowrap">
                   OUR APPROACH
                 </h3>
               </div>
 
-              <div className="lg:col-span-9 grid grid-cols-1 sm:grid-cols-3 gap-6">
-                {approachItems.map((item, idx) => (
-                  <div
-                    key={item.title}
-                    className={`flex flex-col items-center text-center px-4 ${
-                      idx < approachItems.length - 1
-                        ? 'sm:border-r sm:border-[#C5A3E0]'
-                        : ''
-                    }`}
-                  >
-                    <div className="mb-2">{item.icon}</div>
-                    <h4 className="font-serif-display text-[21px] font-semibold text-[#2E1142] mb-1 whitespace-nowrap">
-                      {item.title}
-                    </h4>
-                    <p className="text-[13.5px] text-[#3F2157] leading-snug max-w-[230px]">
-                      {item.description}
-                    </p>
-                  </div>
-                ))}
+              <div className="lg:col-span-9 min-w-0 overflow-hidden">
+                <InfiniteHorizontalCarousel
+                  items={approachItems}
+                  getItemKey={(item, idx) => `${item.title}-${idx}`}
+                  dividerClassName="h-16 sm:h-20 w-[1px] bg-[#C5A3E0]/75 shrink-0"
+                  className="py-0.5"
+                  renderItem={(item) => (
+                    <div className="flex flex-col items-center text-center px-5 sm:px-7 lg:px-8 w-[235px] sm:w-[260px] lg:w-[275px] shrink-0">
+                      <div className="mb-1.5 flex items-center justify-center">
+                        {item.icon}
+                      </div>
+                      <h4 className="font-serif-display text-[19.5px] sm:text-[20.5px] font-semibold text-[#2E1142] mb-0.5 whitespace-nowrap">
+                        {item.title}
+                      </h4>
+                      <p className="text-[13px] text-[#3F2157] leading-snug max-w-[230px]">
+                        {item.description}
+                      </p>
+                    </div>
+                  )}
+                />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* WALK THE PATH WITH US / BEGIN YOUR HEALING JOURNEY CTA */}
-      <section className="relative overflow-hidden bg-gradient-to-r from-[#DFCCF4] via-[#F3EAFB] to-[#DFCCF4] border-t border-[#D8C0EE]">
+      {/* WALK THE PATH WITH US / BEGIN YOUR HEALING JOURNEY CTA — Matches Home Bottom Banner Proportions */}
+      <section className="pt-3.5 pb-3 sm:pt-5 sm:pb-5 bg-gradient-to-b from-[#FAF7FD] to-[#F3E9FB]/75">
         <div className="layout-container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 items-center min-h-[220px]">
-            <div className="hidden lg:block lg:col-span-3 h-full">
-              <img
-                src={withBaseUrl('/assets/extracted/cta_about_left.png')}
-                alt="Waterfall and purple flowers"
-                referrerPolicy="no-referrer"
-                loading="lazy"
-                className="w-full h-full object-cover"
-              />
-            </div>
+          <BottomPromoBanner
+            imageSrc="/assets/aistudio/Sunlit_Archway_Yoga_Studio_625612a0.png"
+            imageAlt="Sunlit yoga archway sanctuary with frosted window, cork blocks, stacked mauve yoga mats, illuminated shelves, and lush plants"
+            imageWidth={2172}
+            imageHeight={724}
+            objectPositionClass="object-[50%_72%]"
+            fallbackBgClass="bg-gradient-to-r from-[#F9DFCD] via-[#FAD7CC] to-[#F8D9C0]"
+            heading="Walk the Path With Us"
+            subheading="Begin Your Healing Journey"
+            ctaLabel="Book a Session"
+            onAction={() => onNavigate('book')}
+          />
 
-            <div className="lg:col-span-6 py-12 px-4 sm:px-6 text-center flex flex-col items-center justify-center">
-              <p className="font-sans-body text-[10.5px] sm:text-[11.5px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.26em] text-[#3A1352] mb-2 whitespace-nowrap">
-                WALK THE PATH WITH US
-              </p>
-              <h2 className="font-serif-display text-[clamp(15px,2.7vw,34px)] font-medium uppercase tracking-[0.025em] sm:tracking-[0.035em] leading-[1.15] text-[#321048] mb-5 whitespace-nowrap">
-                BEGIN YOUR HEALING JOURNEY
-              </h2>
-              <button
-                type="button"
-                onClick={() => onNavigate('book')}
-                className="inline-flex items-center justify-center px-9 py-3 rounded-full bg-gradient-to-r from-[#4B1664] to-[#5E207D] hover:from-[#3A0E50] hover:to-[#4B1664] text-white text-[14.5px] font-medium shadow-[0_6px_18px_rgba(75,22,100,0.4)] transition-all cursor-pointer text-center"
-              >
-                <span>Book a Session</span>
-              </button>
-            </div>
-
-            <div className="hidden lg:block lg:col-span-3 h-full">
-              <img
-                src={withBaseUrl('/assets/extracted/cta_about_right.png')}
-                alt="River stone and purple flowers"
-                referrerPolicy="no-referrer"
-                loading="lazy"
-                className="w-full h-full object-cover object-right"
-              />
-            </div>
+          {/* Subtle Muted Gold & Light Burgundy Horizontal Divider separating CTA from Footer */}
+          <div
+            className="mt-3 sm:mt-4 flex items-center justify-center gap-2.5 px-4"
+            aria-hidden="true"
+          >
+            <span className="h-[1px] flex-1 max-w-[130px] sm:max-w-[220px] bg-gradient-to-r from-transparent via-[#C69A4A]/55 to-[#70283F]/40" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#B78A45]/75" />
+            <span className="h-[1px] flex-1 max-w-[130px] sm:max-w-[220px] bg-gradient-to-l from-transparent via-[#C69A4A]/55 to-[#70283F]/40" />
           </div>
         </div>
       </section>
@@ -286,7 +274,7 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
               type="button"
               onClick={() => setShowFounderModal(false)}
               aria-label="Close founder story"
-              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-[#EFE2FA] text-[#3B1254] flex items-center justify-center hover:bg-[#E2CCF5] cursor-pointer"
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-gradient-to-br from-[#F6EEFD] to-[#FCEEF5] border border-[#D7BEEF] text-[#3B1254] flex items-center justify-center hover:from-[#EAD9FA] hover:to-[#F9DFEC] transition-all cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -340,7 +328,7 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
                 <button
                   type="button"
                   onClick={() => setShowFounderModal(false)}
-                  className="px-5 py-2 rounded-full border border-[#5D237A] text-[#3A1352] text-sm font-medium hover:bg-[#F2E6FA] cursor-pointer text-center"
+                  className={`px-5 py-2 rounded-full text-sm font-medium cursor-pointer text-center whitespace-nowrap ${BUTTON_TOKENS.secondary}`}
                 >
                   Close
                 </button>
@@ -350,7 +338,7 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
                     setShowFounderModal(false);
                     onNavigate('book');
                   }}
-                  className="px-6 py-2 rounded-full bg-[#4B1664] text-white text-sm font-medium hover:bg-[#3A0E50] cursor-pointer text-center"
+                  className={`px-6 py-2 rounded-full text-sm font-medium cursor-pointer text-center whitespace-nowrap ${BUTTON_TOKENS.general}`}
                 >
                   Book a Session
                 </button>
