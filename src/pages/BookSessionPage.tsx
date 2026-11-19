@@ -6,11 +6,14 @@ import {
   ChevronLeft,
   ChevronRight,
   Clock,
+  Mail,
+  Phone,
   Sparkles,
   User,
 } from 'lucide-react';
 import {HeroBanner} from '../components/HeroBanner';
 import {BookExperienceCard} from '../components/BookExperienceCard';
+import {IS_STATIC_PRESENTATION} from '../data/staticContent';
 import {
   InfinityLineIcon,
   LotusLineIcon,
@@ -257,6 +260,8 @@ export function BookSessionPage({
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [staticBookingNotice, setStaticBookingNotice] =
+    useState<boolean>(false);
   const [confirmedBooking, setConfirmedBooking] = useState<Booking | null>(
     null
   );
@@ -345,8 +350,14 @@ export function BookSessionPage({
     e.preventDefault();
     setSubmitError(null);
     setPaymentWarning(null);
+    setStaticBookingNotice(false);
 
     if (!validateBookingForm()) return;
+
+    if (IS_STATIC_PRESENTATION) {
+      setStaticBookingNotice(true);
+      return;
+    }
 
     setSubmitting(true);
     try {
@@ -966,34 +977,36 @@ export function BookSessionPage({
                       />
                     </div>
 
-                    {/* Payment Option Toggle */}
-                    <div className="pt-1">
-                      <div className="grid grid-cols-2 gap-2 text-[12px]">
-                        <button
-                          type="button"
-                          onClick={() => setPaymentMethod('pay_at_session')}
-                          className={`py-2 px-3 rounded-xl border font-medium transition-colors cursor-pointer text-center ${
-                            paymentMethod === 'pay_at_session'
-                              ? 'bg-[#EFE2FA] border-[#5D237A] text-[#3A1352]'
-                              : 'bg-white border-[#DEC9F2] text-[#6B4A8C]'
-                          }`}
-                        >
-                          Reserve (Pay at Session)
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setPaymentMethod('razorpay')}
-                          className={`py-2 px-3 rounded-xl border font-medium transition-colors cursor-pointer text-center ${
-                            paymentMethod === 'razorpay'
-                              ? 'bg-[#EFE2FA] border-[#5D237A] text-[#3A1352]'
-                              : 'bg-white border-[#DEC9F2] text-[#6B4A8C]'
-                          }`}
-                        >
-                          Razorpay Online{' '}
-                          {!settings.razorpayConfigured && '(Setup Pending)'}
-                        </button>
+                    {/* Payment Option Toggle (Hidden in Static Presentation Mode) */}
+                    {!IS_STATIC_PRESENTATION && (
+                      <div className="pt-1">
+                        <div className="grid grid-cols-2 gap-2 text-[12px]">
+                          <button
+                            type="button"
+                            onClick={() => setPaymentMethod('pay_at_session')}
+                            className={`py-2 px-3 rounded-xl border font-medium transition-colors cursor-pointer text-center ${
+                              paymentMethod === 'pay_at_session'
+                                ? 'bg-[#EFE2FA] border-[#5D237A] text-[#3A1352]'
+                                : 'bg-white border-[#DEC9F2] text-[#6B4A8C]'
+                            }`}
+                          >
+                            Reserve (Pay at Session)
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setPaymentMethod('razorpay')}
+                            className={`py-2 px-3 rounded-xl border font-medium transition-colors cursor-pointer text-center ${
+                              paymentMethod === 'razorpay'
+                                ? 'bg-[#EFE2FA] border-[#5D237A] text-[#3A1352]'
+                                : 'bg-white border-[#DEC9F2] text-[#6B4A8C]'
+                            }`}
+                          >
+                            Razorpay Online{' '}
+                            {!settings.razorpayConfigured && '(Setup Pending)'}
+                          </button>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
 
                   {/* Live Booking Summary Box */}
@@ -1018,6 +1031,49 @@ export function BookSessionPage({
                       {selectedTimeSlot ? `at ${selectedTimeSlot}` : ''}
                     </p>
                   </div>
+
+                  {staticBookingNotice && (
+                    <div
+                      role="status"
+                      className="p-5 rounded-2xl bg-[#F3E8FC] border-2 border-[#6B2D8F] text-[#2E1142] space-y-3.5 shadow-sm"
+                    >
+                      <div className="flex items-start gap-3">
+                        <Sparkles className="w-5 h-5 text-[#5D237A] shrink-0 mt-0.5" />
+                        <p className="font-sans-body text-[14px] sm:text-[14.5px] font-medium leading-relaxed text-[#2E1142]">
+                          Thank you for your interest in SOUNDWITHIN. Our
+                          booking service is currently being prepared. Please
+                          contact us to arrange your session.
+                        </p>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-2.5 pt-1 pl-8">
+                        <a
+                          href={`mailto:${settings.emailDisplay.split(' ')[0]}?subject=${encodeURIComponent(
+                            `Session Request: ${selectedExperience?.name || 'Healing Session'} (${selectedFormat})`
+                          )}&body=${encodeURIComponent(
+                            `Namaste SoundWithin,\n\nI would like to arrange a session:\n- Experience: ${selectedExperience?.name} (${selectedFormat})\n- Preferred Date: ${formatReadableDate(selectedDate)} at ${selectedTimeSlot}\n- Name: ${customerName}\n- Phone: ${phoneCountryCode} ${customerPhone}\n- Notes: ${specialRequests || 'None'}`
+                          )}`}
+                          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#4B1664] hover:bg-[#3A0E50] text-white text-[12.5px] font-medium transition-colors"
+                        >
+                          <Mail className="w-3.5 h-3.5" />
+                          <span>Email {settings.emailDisplay.split(' ')[0]}</span>
+                        </a>
+                        <a
+                          href={`tel:${settings.phoneDisplay.split(' (')[0].replace(/\s+/g, '')}`}
+                          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white hover:bg-[#EFE2FA] text-[#3A1352] border border-[#5D237A] text-[12.5px] font-medium transition-colors"
+                        >
+                          <Phone className="w-3.5 h-3.5" />
+                          <span>Call {settings.phoneDisplay.split(' (')[0]}</span>
+                        </a>
+                        <button
+                          type="button"
+                          onClick={() => onNavigate('contact')}
+                          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white hover:bg-[#EFE2FA] text-[#3A1352] border border-[#5D237A] text-[12.5px] font-medium transition-colors cursor-pointer"
+                        >
+                          <span>Contact Page</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
 
                   {submitError && (
                     <div className="p-3 rounded-xl bg-[#FDF0F3] border border-[#E699AA] text-xs text-[#6E1A2C] flex items-start gap-2">

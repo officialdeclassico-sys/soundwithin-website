@@ -1,6 +1,7 @@
 import React from 'react';
 import {Calendar, Clock} from 'lucide-react';
 import {HeroBanner} from '../components/HeroBanner';
+import {withBaseUrl} from '../utils/assetUrl';
 import {
   ExperienceBadgeIcon,
   InfinityLineIcon,
@@ -212,7 +213,7 @@ export function ExperiencesPage({
             <div className="grid grid-cols-1 lg:grid-cols-12 items-center min-h-[215px]">
               <div className="hidden lg:block lg:col-span-4 h-full">
                 <img
-                  src="/assets/extracted/cta_exp_left.png"
+                  src={withBaseUrl('/assets/extracted/cta_exp_left.png')}
                   alt="Cascading waterfall with floating pink lotus"
                   referrerPolicy="no-referrer"
                   loading="lazy"
@@ -239,7 +240,7 @@ export function ExperiencesPage({
 
               <div className="hidden lg:block lg:col-span-4 h-full">
                 <img
-                  src="/assets/extracted/cta_exp_right.png"
+                  src={withBaseUrl('/assets/extracted/cta_exp_right.png')}
                   alt="Ornate glowing lantern surrounded by purple blossoms"
                   referrerPolicy="no-referrer"
                   loading="lazy"

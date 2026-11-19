@@ -15,6 +15,8 @@ import {
 } from 'lucide-react';
 import {HeroBanner} from '../components/HeroBanner';
 import {LotusLineIcon} from '../components/BrandIcons';
+import {withBaseUrl} from '../utils/assetUrl';
+import {IS_STATIC_PRESENTATION} from '../data/staticContent';
 import type {EnquiryType, PageRoute, WebsiteSettings} from '../types';
 
 interface ContactPageProps {
@@ -53,6 +55,7 @@ export function ContactPage({
   const [submitting, setSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [staticServiceNotice, setStaticServiceNotice] = useState<boolean>(false);
   const [socialNotice, setSocialNotice] = useState<string | null>(null);
 
   useEffect(() => {
@@ -90,8 +93,14 @@ export function ContactPage({
     e.preventDefault();
     setSubmitError(null);
     setSubmitSuccess(null);
+    setStaticServiceNotice(false);
 
     if (!validateForm()) return;
+
+    if (IS_STATIC_PRESENTATION) {
+      setStaticServiceNotice(true);
+      return;
+    }
 
     setSubmitting(true);
     try {
@@ -133,7 +142,7 @@ export function ContactPage({
     const rawNum = settings.whatsappNumber.replace(/\D/g, '');
     if (!rawNum) {
       setSocialNotice(
-        'WhatsApp business number is currently set to a placeholder. Configure the verified WhatsApp number in the Admin Management portal to open live WhatsApp chat.'
+        'Please contact us via email at hello@soundwithin.in or call +91 98765 43210.'
       );
       return;
     }
@@ -146,7 +155,7 @@ export function ContactPage({
   const handleSocialClick = (platform: string, url: string) => {
     if (!url || !url.trim()) {
       setSocialNotice(
-        `The ${platform} profile URL has not been configured yet. You can add the official ${platform} URL in the Admin Management portal.`
+        `Our official ${platform} channel is being updated. Please connect with us directly at ${settings.emailDisplay.split(' ')[0]} or ${settings.phoneDisplay.split(' (')[0]}.`
       );
       return;
     }
@@ -324,6 +333,46 @@ export function ContactPage({
                   SEND US A MESSAGE
                 </h3>
 
+                {staticServiceNotice && (
+                  <div className="mb-6 p-5 rounded-2xl bg-[#F3E8FC] border border-[#B589DC] text-[#2E1142] space-y-3 text-[14px]">
+                    <div className="flex items-start gap-3">
+                      <AlertCircle className="w-5 h-5 text-[#5D237A] shrink-0 mt-0.5" />
+                      <div>
+                        <p className="font-serif-display text-xl font-semibold text-[#321048]">
+                          Enquiry Service Currently Being Prepared
+                        </p>
+                        <p className="mt-1 text-[13.5px] leading-relaxed text-[#3B1E54]">
+                          Thank you for reaching out to SOUNDWITHIN. Our online
+                          enquiry submission service is temporarily unavailable
+                          while our booking portal is being finalized. Please
+                          connect with us directly via email or WhatsApp below.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap items-center gap-3 pt-1 pl-8">
+                      <a
+                        href={`mailto:${settings.emailDisplay.split(' ')[0]}?subject=${encodeURIComponent(
+                          `SOUNDWITHIN Inquiry: ${inquiryType || 'General'}`
+                        )}&body=${encodeURIComponent(
+                          `Name: ${fullName}\nPhone: ${phoneCountryCode} ${phone}\n\n${message}`
+                        )}`}
+                        className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#4B1664] hover:bg-[#3A0E50] text-white text-[13px] font-medium transition-colors"
+                      >
+                        <Mail className="w-3.5 h-3.5" />
+                        <span>Email {settings.emailDisplay.split(' ')[0]}</span>
+                      </a>
+                      <button
+                        type="button"
+                        onClick={handleWhatsAppAction}
+                        className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white hover:bg-[#EFE2FA] text-[#3A1352] border border-[#5D237A] text-[13px] font-medium transition-colors cursor-pointer"
+                      >
+                        <Phone className="w-3.5 h-3.5" />
+                        <span>WhatsApp / Call {settings.phoneDisplay.split(' (')[0]}</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 {submitSuccess && (
                   <div className="mb-6 p-4 rounded-2xl bg-[#EBF9F1] border border-[#7AC79B] text-[#1A4D31] flex items-start gap-3 text-[14px]">
                     <CheckCircle2 className="w-5 h-5 text-[#237A4B] shrink-0 mt-0.5" />
@@ -492,14 +541,14 @@ export function ContactPage({
       <section className="relative pt-10 pb-14 overflow-hidden bg-gradient-to-b from-[#FAF7FD] via-[#EFE3FA] to-[#E3D1F4]">
         {/* Left & Right Corner Scenic Assets from Contact Reference */}
         <img
-          src="/assets/extracted/cta_contact_left.png"
+          src={withBaseUrl('/assets/extracted/cta_contact_left.png')}
           alt="Purple blossoms by flowing stream"
           referrerPolicy="no-referrer"
           loading="lazy"
           className="hidden lg:block absolute bottom-0 left-0 w-80 h-60 object-cover object-left-bottom pointer-events-none select-none opacity-95"
         />
         <img
-          src="/assets/extracted/cta_contact_right.png"
+          src={withBaseUrl('/assets/extracted/cta_contact_right.png')}
           alt="Stacked zen stones and glowing candle beside water"
           referrerPolicy="no-referrer"
           loading="lazy"

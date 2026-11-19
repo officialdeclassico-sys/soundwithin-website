@@ -9,6 +9,16 @@ import {AboutPage} from './pages/AboutPage';
 import {ContactPage} from './pages/ContactPage';
 import {BookSessionPage} from './pages/BookSessionPage';
 import {AdminPage} from './pages/AdminPage';
+import {
+  IS_STATIC_PRESENTATION,
+  STATIC_AVAILABILITY,
+  STATIC_EXPERIENCES,
+  STATIC_RETREATS,
+  STATIC_SETTINGS,
+  STATIC_TESTIMONIALS,
+  STATIC_UPCOMING_RETREATS,
+} from './data/staticContent';
+import {withBaseUrl} from './utils/assetUrl';
 import type {
   AvailabilityConfig,
   Booking,
@@ -24,7 +34,8 @@ import type {
 
 const PAGE_TITLES: Record<PageRoute, string> = {
   home: 'SoundWithin — Return to Your Inner Frequency | Sound Healing & Retreats',
-  experiences: 'Healing Experiences — SoundWithin | Sound Baths & Guided Meditation',
+  experiences:
+    'Healing Experiences — SoundWithin | Sound Baths & Guided Meditation',
   retreats: 'Immersive Healing Retreats — SoundWithin | Nature-Based Retreats',
   about: 'About Us — The Story Behind SoundWithin',
   contact: "Contact Us — Let's Connect | SoundWithin",
@@ -32,57 +43,48 @@ const PAGE_TITLES: Record<PageRoute, string> = {
   admin: 'Admin Management Portal — SoundWithin',
 };
 
-const FALLBACK_SETTINGS: WebsiteSettings = {
-  phoneDisplay: '+91 98765 43210 (Placeholder – Configure in Admin)',
-  whatsappNumber: '',
-  isContactConfigured: false,
-  emailDisplay: 'hello@soundwithin.in (Placeholder – Configure in Admin)',
-  locationPrimary: 'Western Ghats, Maharashtra',
-  locationSecondary: '(Retreat Venue – details shared upon booking)',
-  socialLinks: {
-    instagram: '',
-    youtube: '',
-    spotify: '',
-    community: '',
-  },
-  founderHeadline: 'THE HEART BEHIND SOUNDWITHIN',
-  founderBioShort:
-    'A sound healing practitioner, meditation guide and lifelong seeker of self-awareness. My journey began with a personal quest for healing and balance, which later evolved into a deeper calling — to create a safe, nature-connected space for others to heal, reflect and transform.',
-  founderBioExtended: [
-    '[Editable Founder Biography Placeholder — Update via Admin Panel]',
-    'SoundWithin was founded with a single heartfelt intention: to offer a serene, authentic space where individuals can pause from the noise of modern life and return to their natural inner frequency.',
-  ],
-  founderNoteLabel: 'Editable Founder Profile (Configure verified details in Admin)',
-  allowBookingWithoutAdvancePayment: true,
-  razorpayConfigured: false,
-  razorpayKeyIdPublic: '',
-  emailIntegrationConfigured: false,
-};
+const VALID_CUSTOMER_ROUTES: PageRoute[] = [
+  'home',
+  'experiences',
+  'retreats',
+  'about',
+  'contact',
+  'book',
+];
 
-const FALLBACK_AVAILABILITY: AvailabilityConfig = {
-  isDemoAvailability: true,
-  defaultTimeSlots: ['10:00 AM', '12:00 PM', '3:00 PM', '5:00 PM', '7:00 PM'],
-  customDateSlots: {},
-  blockedDates: [],
-  closedWeekdays: [],
-};
+function getRouteFromLocation(): PageRoute {
+  if (typeof window === 'undefined') return 'home';
+  const rawHash = window.location.hash.replace(/^#\/?/, '').trim().toLowerCase();
+  if (rawHash === 'admin' && !IS_STATIC_PRESENTATION) {
+    return 'admin';
+  }
+  if ((VALID_CUSTOMER_ROUTES as string[]).includes(rawHash)) {
+    return rawHash as PageRoute;
+  }
+  return 'home';
+}
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<PageRoute>('home');
-  const [experiences, setExperiences] = useState<Experience[]>([]);
-  const [retreats, setRetreats] = useState<Retreat[]>([]);
+  const [currentPage, setCurrentPage] = useState<PageRoute>(() =>
+    getRouteFromLocation()
+  );
+  const [experiences, setExperiences] =
+    useState<Experience[]>(STATIC_EXPERIENCES);
+  const [retreats, setRetreats] = useState<Retreat[]>(STATIC_RETREATS);
   const [upcomingRetreats, setUpcomingRetreats] = useState<
     UpcomingRetreatBatch[]
-  >([]);
-  const [availability, setAvailability] = useState<AvailabilityConfig>(
-    FALLBACK_AVAILABILITY
-  );
+  >(STATIC_UPCOMING_RETREATS);
+  const [availability, setAvailability] =
+    useState<AvailabilityConfig>(STATIC_AVAILABILITY);
   const [bookedSlotsByDate, setBookedSlotsByDate] = useState<
     Record<string, string[]>
   >({});
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
-  const [settings, setSettings] = useState<WebsiteSettings>(FALLBACK_SETTINGS);
-  const [loadingBootstrap, setLoadingBootstrap] = useState<boolean>(true);
+  const [testimonials, setTestimonials] =
+    useState<Testimonial[]>(STATIC_TESTIMONIALS);
+  const [settings, setSettings] = useState<WebsiteSettings>(STATIC_SETTINGS);
+  const [loadingBootstrap, setLoadingBootstrap] = useState<boolean>(
+    !IS_STATIC_PRESENTATION
+  );
 
   // Detail Modals state
   const [detailExperience, setDetailExperience] = useState<Experience | null>(
@@ -101,19 +103,33 @@ export default function App() {
     useState<string>('');
 
   const fetchBootstrapData = useCallback(async () => {
+    if (IS_STATIC_PRESENTATION) {
+      setLoadingBootstrap(false);
+      return;
+    }
     try {
       const res = await fetch('/api/bootstrap');
       if (!res.ok) return;
       const data = (await res.json()) as PublicBootstrapData;
-      setExperiences(data.experiences || []);
-      setRetreats(data.retreats || []);
-      setUpcomingRetreats(data.upcomingRetreats || []);
+      if (data.experiences?.length) {
+        setExperiences(
+          data.experiences.map((e) => ({...e, image: withBaseUrl(e.image)}))
+        );
+      }
+      if (data.retreats?.length) {
+        setRetreats(
+          data.retreats.map((r) => ({...r, image: withBaseUrl(r.image)}))
+        );
+      }
+      if (data.upcomingRetreats?.length) {
+        setUpcomingRetreats(data.upcomingRetreats);
+      }
       if (data.availability) setAvailability(data.availability);
       setBookedSlotsByDate(data.bookedSlotsByDate || {});
-      setTestimonials(data.testimonials || []);
+      if (data.testimonials?.length) setTestimonials(data.testimonials);
       if (data.settings) setSettings(data.settings);
     } catch {
-      // Keep fallback state if server is starting
+      // Keep static fallback state if server is unreachable
     } finally {
       setLoadingBootstrap(false);
     }
@@ -123,10 +139,27 @@ export default function App() {
     fetchBootstrapData();
   }, [fetchBootstrapData]);
 
-  // Sync page title & scroll to top on navigation
+  // Listen to hashchange for direct URL navigation, refresh, and browser back/forward on GitHub Pages
+  useEffect(() => {
+    const onHashChange = () => {
+      const route = getRouteFromLocation();
+      setCurrentPage(route);
+      document.title = PAGE_TITLES[route] || PAGE_TITLES.home;
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  // Sync page title & URL hash & scroll to top on navigation
   const handleNavigate = useCallback((page: PageRoute) => {
-    setCurrentPage(page);
-    document.title = PAGE_TITLES[page] || PAGE_TITLES.home;
+    const targetPage: PageRoute =
+      page === 'admin' && IS_STATIC_PRESENTATION ? 'home' : page;
+    setCurrentPage(targetPage);
+    document.title = PAGE_TITLES[targetPage] || PAGE_TITLES.home;
+    const nextHash = targetPage === 'home' ? '#/' : `#/${targetPage}`;
+    if (window.location.hash !== nextHash) {
+      window.history.pushState(null, '', nextHash);
+    }
     window.scrollTo({top: 0, behavior: 'smooth'});
   }, []);
 
@@ -233,7 +266,7 @@ export default function App() {
               />
             )}
 
-            {currentPage === 'admin' && (
+            {!IS_STATIC_PRESENTATION && currentPage === 'admin' && (
               <AdminPage
                 onNavigate={handleNavigate}
                 onRefreshPublicData={fetchBootstrapData}

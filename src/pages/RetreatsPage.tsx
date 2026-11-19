@@ -10,6 +10,8 @@ import {
   Utensils,
 } from 'lucide-react';
 import {HeroBanner} from '../components/HeroBanner';
+import {withBaseUrl} from '../utils/assetUrl';
+import {IS_STATIC_PRESENTATION} from '../data/staticContent';
 import {
   InfinityLineIcon,
   LotusLineIcon,
@@ -248,7 +250,7 @@ export function RetreatsPage({
               <div className="lg:col-span-4 flex justify-center lg:justify-start">
                 <div className="w-full max-w-[400px] h-48 rounded-full overflow-hidden border-2 border-[#DEC9F2] shadow-[0_8px_24px_rgba(75,22,100,0.12)]">
                   <img
-                    src="/assets/extracted/retreat_included_bowl.png"
+                    src={withBaseUrl('/assets/extracted/retreat_included_bowl.png')}
                     alt="Tibetan singing bowl with incense smoke and amethyst crystal on mossy stone"
                     referrerPolicy="no-referrer"
                     loading="lazy"
@@ -334,13 +336,13 @@ export function RetreatsPage({
               </div>
             </div>
 
-            {/* Subtle Editable Schedule Note */}
+            {/* Schedule Info Note */}
             <div className="mt-4 pt-3 border-t border-[#DEC8F0] flex items-center justify-center gap-2 text-[12px] text-[#5B3A75]">
               <AlertCircle className="w-3.5 h-3.5 text-[#5D237A] shrink-0" />
               <span>
-                Note: Upcoming retreat dates and locations shown above are editable
-                placeholders configurable in the Admin Management portal. Click any
-                retreat to inspect its full itinerary.
+                {IS_STATIC_PRESENTATION
+                  ? 'Click any retreat batch above to inspect its complete day-by-day itinerary and inclusions.'
+                  : 'Note: Upcoming retreat dates and locations shown above are editable placeholders configurable in the Admin Management portal. Click any retreat to inspect its full itinerary.'}
               </span>
             </div>
           </div>
@@ -352,7 +354,7 @@ export function RetreatsPage({
         {/* Full-Width Forest Stream & Meditation Cushions Image */}
         <div className="relative w-full h-[250px] sm:h-[340px] overflow-hidden">
           <img
-            src="/assets/extracted/retreat_stream_banner.png"
+            src={withBaseUrl('/assets/extracted/retreat_stream_banner.png')}
             alt="Meditation cushions, glowing lantern, candle, and singing bowl beside a forest stream"
             referrerPolicy="no-referrer"
             loading="lazy"
@@ -407,9 +409,9 @@ export function RetreatsPage({
               Upcoming Retreat Schedule
             </h3>
             <p className="text-[14px] text-[#4B2B63] mb-5">
-              Below are our retreat schedule slots. Please note that dates,
-              locations, and seat counts are editable placeholders until finalized
-              by the sanctuary administrator.
+              {IS_STATIC_PRESENTATION
+                ? 'Explore our upcoming seasonal retreat batches across the Western Ghats and South India. Select any batch to view the full itinerary.'
+                : 'Below are our retreat schedule slots. Please note that dates, locations, and seat counts are editable placeholders until finalized by the sanctuary administrator.'}
             </p>
             <div className="space-y-3 mb-6">
               {upcomingRetreats.map((batch) => (

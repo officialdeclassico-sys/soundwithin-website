@@ -1,6 +1,7 @@
 import React from 'react';
 import {Navbar} from './Navbar';
 import {WavyOrnament} from './BrandIcons';
+import {withBaseUrl} from '../utils/assetUrl';
 import type {PageRoute} from '../types';
 
 interface HeroBannerProps {
@@ -33,7 +34,7 @@ export function HeroBanner({
       <section className="relative w-full overflow-hidden">
         {/* Complete uncropped horizontal hero image driving natural aspect-ratio height across all devices */}
         <img
-          src="/assets/aistudio/Meditation_by_the_Waterfall_Lake_459bc306.png"
+          src={withBaseUrl('/assets/aistudio/Meditation_by_the_Waterfall_Lake_459bc306.png')}
           alt="Woman meditating beside Tibetan singing bowls and glowing lantern overlooking a serene waterfall lake"
           width={2172}
           height={724}
@@ -100,8 +101,8 @@ export function HeroBanner({
 
   const leftSceneSrc =
     variant === 'pink-lantern'
-      ? '/assets/extracted/hero_subpage_pink_left.png'
-      : '/assets/extracted/hero_subpage_lantern_left.png';
+      ? withBaseUrl('/assets/extracted/hero_subpage_pink_left.png')
+      : withBaseUrl('/assets/extracted/hero_subpage_lantern_left.png');
 
   return (
     <section className="relative w-full overflow-hidden bg-[#EAE0F6]">

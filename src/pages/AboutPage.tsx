@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {Edit3, X} from 'lucide-react';
 import {HeroBanner} from '../components/HeroBanner';
+import {withBaseUrl} from '../utils/assetUrl';
+import {IS_STATIC_PRESENTATION} from '../data/staticContent';
 import {
   InfinityLineIcon,
   LotusLineIcon,
@@ -81,7 +83,7 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
             <div className="lg:col-span-6 flex justify-center">
               <div className="w-full max-w-[560px]">
                 <img
-                  src="/assets/extracted/about_why_soundwithin.png"
+                  src={withBaseUrl('/assets/extracted/about_why_soundwithin.png')}
                   alt="Woman peacefully looking up into sunlit trees framed by purple blossoms"
                   referrerPolicy="no-referrer"
                   className="w-full h-auto object-contain"
@@ -177,7 +179,7 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
             <div className="lg:col-span-7 flex justify-center lg:justify-end">
               <div className="w-full max-w-[740px]">
                 <img
-                  src="/assets/extracted/about_founder_bowls.png"
+                  src={withBaseUrl('/assets/extracted/about_founder_bowls.png')}
                   alt="Four Himalayan singing bowls, glowing candle, and amethyst crystal before a waterfall"
                   referrerPolicy="no-referrer"
                   loading="lazy"
@@ -228,7 +230,7 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center min-h-[220px]">
             <div className="hidden lg:block lg:col-span-4 h-full">
               <img
-                src="/assets/extracted/cta_about_left.png"
+                src={withBaseUrl('/assets/extracted/cta_about_left.png')}
                 alt="Waterfall and purple flowers"
                 referrerPolicy="no-referrer"
                 loading="lazy"
@@ -255,7 +257,7 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
 
             <div className="hidden lg:block lg:col-span-4 h-full">
               <img
-                src="/assets/extracted/cta_about_right.png"
+                src={withBaseUrl('/assets/extracted/cta_about_right.png')}
                 alt="River stone and purple flowers"
                 referrerPolicy="no-referrer"
                 loading="lazy"
@@ -311,17 +313,23 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-[#E4D1F5]">
-              <button
-                type="button"
-                onClick={() => {
-                  setShowFounderModal(false);
-                  onNavigate('admin');
-                }}
-                className="inline-flex items-center gap-2 text-xs font-medium text-[#5D237A] hover:underline cursor-pointer"
-              >
-                <Edit3 className="w-3.5 h-3.5" />
-                <span>Edit Founder Biography in Admin</span>
-              </button>
+              {!IS_STATIC_PRESENTATION ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowFounderModal(false);
+                    onNavigate('admin');
+                  }}
+                  className="inline-flex items-center gap-2 text-xs font-medium text-[#5D237A] hover:underline cursor-pointer"
+                >
+                  <Edit3 className="w-3.5 h-3.5" />
+                  <span>Edit Founder Biography in Admin</span>
+                </button>
+              ) : (
+                <span className="text-xs font-medium text-[#5D237A]">
+                  SoundWithin Sanctuary &bull; Western Ghats
+                </span>
+              )}
 
               <div className="flex items-center gap-3">
                 <button

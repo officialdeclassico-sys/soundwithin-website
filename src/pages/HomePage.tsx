@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import {Calendar, Clock, Quote} from 'lucide-react';
 import {HeroBanner} from '../components/HeroBanner';
+import {withBaseUrl} from '../utils/assetUrl';
 import {
   CrescentMoonIcon,
   ExperienceBadgeIcon,
@@ -33,6 +34,7 @@ export function HomePage({
     {
       label: 'Sound Healing',
       icon: <SoundwaveIcon className="w-8 h-8 text-[#5D237A]" />,
+      mobileIcon: <SoundwaveIcon className="w-[23px] h-[23px] text-[#5D237A]" />,
       onClick: () => {
         const exp = experiences.find((e) => e.id === 'exp-sound-healing');
         if (exp) onOpenExperienceDetail(exp);
@@ -42,6 +44,7 @@ export function HomePage({
     {
       label: 'Guided Meditation',
       icon: <LotusLineIcon className="w-9 h-8 text-[#5D237A]" />,
+      mobileIcon: <LotusLineIcon className="w-[25px] h-[23px] text-[#5D237A]" />,
       onClick: () => {
         const exp = experiences.find((e) => e.id === 'exp-guided-meditation');
         if (exp) onOpenExperienceDetail(exp);
@@ -51,6 +54,7 @@ export function HomePage({
     {
       label: 'Energy Balance',
       icon: <ZenStonesIcon className="w-8 h-8 text-[#5D237A]" />,
+      mobileIcon: <ZenStonesIcon className="w-[23px] h-[23px] text-[#5D237A]" />,
       onClick: () => {
         const exp = experiences.find((e) => e.id === 'exp-chakra-alignment');
         if (exp) onOpenExperienceDetail(exp);
@@ -60,6 +64,7 @@ export function HomePage({
     {
       label: 'Emotional Release',
       icon: <SproutLeafIcon className="w-8 h-8 text-[#5D237A]" />,
+      mobileIcon: <SproutLeafIcon className="w-[23px] h-[23px] text-[#5D237A]" />,
       onClick: () => {
         const exp = experiences.find((e) => e.id === 'exp-sound-bath');
         if (exp) onOpenExperienceDetail(exp);
@@ -69,12 +74,105 @@ export function HomePage({
     {
       label: 'Self-Awareness',
       icon: <CrescentMoonIcon className="w-8 h-8 text-[#5D237A]" />,
+      mobileIcon: <CrescentMoonIcon className="w-[23px] h-[23px] text-[#5D237A]" />,
       onClick: () => {
         const exp = experiences.find((e) => e.id === 'exp-self-awareness');
         if (exp) onOpenExperienceDetail(exp);
         else onNavigate('experiences');
       },
     },
+  ];
+
+  // Mobile-only infinite horizontal carousel state & refs
+  const mobileCarouselRef = useRef<HTMLDivElement | null>(null);
+  const isPausedRef = useRef<boolean>(false);
+  const resumeTimerRef = useRef<number | null>(null);
+  const scrollPosRef = useRef<number>(0);
+
+  useEffect(() => {
+    const el = mobileCarouselRef.current;
+    if (!el) return;
+
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let animationFrameId: number;
+    let lastTimestamp = 0;
+    const speedPxPerSec = 28; // Calm, slow, continuous movement
+
+    // Initialize in the middle sequence so manual swipe in either direction is seamless
+    const initPosition = () => {
+      const singleSetWidth = el.scrollWidth / 3;
+      if (singleSetWidth > 0 && el.scrollLeft === 0) {
+        el.scrollLeft = singleSetWidth;
+        scrollPosRef.current = singleSetWidth;
+      }
+    };
+
+    initPosition();
+
+    const step = (timestamp: number) => {
+      if (!lastTimestamp) lastTimestamp = timestamp;
+      const deltaSec = Math.min((timestamp - lastTimestamp) / 1000, 0.1);
+      lastTimestamp = timestamp;
+
+      const singleSetWidth = el.scrollWidth / 3;
+      if (singleSetWidth > 0) {
+        if (!isPausedRef.current && !mediaQuery.matches) {
+          scrollPosRef.current += speedPxPerSec * deltaSec;
+          if (scrollPosRef.current >= singleSetWidth * 2) {
+            scrollPosRef.current -= singleSetWidth;
+          } else if (scrollPosRef.current <= 0) {
+            scrollPosRef.current += singleSetWidth;
+          }
+          el.scrollLeft = scrollPosRef.current;
+        } else {
+          // Keep virtual position synced while user swipes manually
+          if (el.scrollLeft >= singleSetWidth * 2.5) {
+            el.scrollLeft -= singleSetWidth;
+          } else if (el.scrollLeft <= singleSetWidth * 0.2) {
+            el.scrollLeft += singleSetWidth;
+          }
+          scrollPosRef.current = el.scrollLeft;
+        }
+      }
+
+      animationFrameId = window.requestAnimationFrame(step);
+    };
+
+    animationFrameId = window.requestAnimationFrame(step);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrameId);
+      if (resumeTimerRef.current) {
+        window.clearTimeout(resumeTimerRef.current);
+      }
+    };
+  }, []);
+
+  const handleCarouselPause = () => {
+    if (resumeTimerRef.current) {
+      window.clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = null;
+    }
+    isPausedRef.current = true;
+  };
+
+  const handleCarouselResume = () => {
+    if (resumeTimerRef.current) {
+      window.clearTimeout(resumeTimerRef.current);
+    }
+    resumeTimerRef.current = window.setTimeout(() => {
+      if (mobileCarouselRef.current) {
+        scrollPosRef.current = mobileCarouselRef.current.scrollLeft;
+      }
+      isPausedRef.current = false;
+    }, 650);
+  };
+
+  // Triple sequence for seamless infinite loop on mobile without gaps or jumps
+  const mobileInfiniteCategories = [
+    ...wellnessHighlights,
+    ...wellnessHighlights,
+    ...wellnessHighlights,
   ];
 
   return (
@@ -94,9 +192,47 @@ export function HomePage({
       {/* 6. FIVE WELLNESS HIGHLIGHTS BAR */}
       <section
         aria-label="Wellness Highlights"
-        className="relative z-20 bg-gradient-to-b from-[#F4ECFB] to-[#FAF7FD] border-b border-[#E7D8F6]"
+        className="relative z-20 bg-gradient-to-b from-[#F4ECFB] to-[#FAF7FD] border-b border-[#E7D8F6] overflow-hidden"
       >
-        <div className="layout-container py-7">
+        {/* Mobile-Only Single-Row Infinite Horizontal Carousel (< 640px) */}
+        <div
+          ref={mobileCarouselRef}
+          onTouchStart={handleCarouselPause}
+          onTouchEnd={handleCarouselResume}
+          onTouchCancel={handleCarouselResume}
+          onMouseEnter={handleCarouselPause}
+          onMouseLeave={handleCarouselResume}
+          className="sm:hidden w-full overflow-x-auto scrollbar-hidden py-2 select-none touch-pan-x"
+        >
+          <div className="flex items-center w-max">
+            {mobileInfiniteCategories.map((item, idx) => (
+              <div
+                key={`${item.label}-${idx}`}
+                className="flex items-center shrink-0"
+              >
+                <button
+                  type="button"
+                  onClick={item.onClick}
+                  className="group flex flex-col items-center justify-center px-4 py-0.5 text-center transition-transform duration-150 active:scale-95 cursor-pointer shrink-0"
+                >
+                  <div className="mb-1 flex items-center justify-center">
+                    {item.mobileIcon}
+                  </div>
+                  <span className="font-serif-display text-[13px] leading-tight font-semibold text-[#3A1352] whitespace-nowrap">
+                    {item.label}
+                  </span>
+                </button>
+                <span
+                  className="h-5 w-[1px] bg-[#C5A3E0]/60 shrink-0"
+                  aria-hidden="true"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop, Laptop & Tablet Grid (>= 640px) — Preserved Unchanged */}
+        <div className="hidden sm:block layout-container py-7">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-6">
             {wellnessHighlights.map((item, index) => (
               <button
@@ -155,7 +291,7 @@ export function HomePage({
             <div className="lg:col-span-7 flex justify-center lg:justify-end">
               <div className="relative w-full max-w-[740px]">
                 <img
-                  src="/assets/extracted/home_what_is_sound_healing.png"
+                  src={withBaseUrl('/assets/extracted/home_what_is_sound_healing.png')}
                   alt="Himalayan lotus singing bowl with rising incense, purple blossoms, amethyst crystals, and waterfall"
                   referrerPolicy="no-referrer"
                   className="w-full h-auto object-contain drop-shadow-[0_12px_32px_rgba(75,22,100,0.12)]"
@@ -402,7 +538,7 @@ export function HomePage({
             <div className="grid grid-cols-1 lg:grid-cols-12 items-center min-h-[220px]">
               <div className="hidden lg:block lg:col-span-4 h-full">
                 <img
-                  src="/assets/extracted/cta_exp_left.png"
+                  src={withBaseUrl('/assets/extracted/cta_exp_left.png')}
                   alt="Waterfall and lotus blossom"
                   referrerPolicy="no-referrer"
                   loading="lazy"
@@ -427,7 +563,7 @@ export function HomePage({
               </div>
               <div className="hidden lg:block lg:col-span-4 h-full">
                 <img
-                  src="/assets/extracted/cta_exp_right.png"
+                  src={withBaseUrl('/assets/extracted/cta_exp_right.png')}
                   alt="Glowing lantern and purple blossoms"
                   referrerPolicy="no-referrer"
                   loading="lazy"
