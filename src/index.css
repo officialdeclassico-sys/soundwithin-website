@@ -41,6 +41,10 @@
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+.font-montserrat {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 /* Consistent full-viewport responsive container */
 .layout-container {
   width: 100%;
@@ -84,13 +88,20 @@
   height: 0;
 }
 
-/* Primary Home Hero Image — preserves intrinsic horizontal aspect ratio across all devices */
+/* Primary Home & Subpage Hero Image — preserves intrinsic horizontal aspect ratio on tablet/desktop, with slightly increased height on mobile (<640px) so the navigation bar and hero content never overlap */
 .hero-image {
   display: block;
   width: 100%;
   height: auto;
   object-fit: contain;
   object-position: center;
+}
+
+@media (max-width: 639px) {
+  .hero-image {
+    height: clamp(174px, 45.5vw, 206px);
+    object-fit: cover;
+  }
 }
 
 /* Soft misty lavender mountain wave backgrounds matching the reference pages */

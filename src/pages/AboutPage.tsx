@@ -69,14 +69,21 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
       <HeroBanner
         currentPage="about"
         onNavigate={onNavigate}
-        variant="brass-lantern"
-        kicker="ABOUT US"
-        titleLines={['THE STORY', 'BEHIND', 'SOUNDWITHIN']}
-        description="A space for healing, self-awareness and inner transformation through the power of sound, nature and mindful practices."
+        variant="about-team"
+        kicker="GET TO KNOW US"
+        titleLines={['A Journey Towards', 'Inner Harmony']}
+        description="We bring together sound, mindfulness, and meaningful human connection to create spaces for healing, self-discovery, and personal transformation."
+        mobileDescription="Bringing together sound, mindfulness, and human connection for healing and inner transformation."
+        ctaLabel="Discover Our Story"
+        onCtaClick={() => {
+          document
+            .getElementById('about-our-purpose')
+            ?.scrollIntoView({behavior: 'smooth'});
+        }}
       />
 
       {/* OUR PURPOSE / WHY SOUNDWITHIN? */}
-      <section className="py-12 sm:py-16 bg-[#FAF7FD]">
+      <section id="about-our-purpose" className="py-12 sm:py-16 bg-[#FAF7FD]">
         <div className="layout-container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Organic Blob Image */}
@@ -93,10 +100,10 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
 
             {/* Right Purpose Content with Left Hairline Divider */}
             <div className="lg:col-span-6 lg:pl-12 lg:border-l lg:border-[#D5B9EC] space-y-4">
-              <p className="font-sans-body text-[12px] font-semibold uppercase tracking-[0.26em] text-[#3A1352]">
+              <p className="font-sans-body text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.26em] text-[#3A1352] whitespace-nowrap">
                 OUR PURPOSE
               </p>
-              <h2 className="font-serif-display text-[32px] sm:text-[42px] font-medium uppercase tracking-[0.03em] text-[#321048] leading-tight">
+              <h2 className="font-serif-display text-[clamp(20px,3.6vw,42px)] font-medium uppercase tracking-[0.025em] sm:tracking-[0.03em] text-[#321048] leading-tight whitespace-nowrap">
                 WHY SOUNDWITHIN?
               </h2>
               <p className="font-sans-body text-[15px] sm:text-[16px] leading-[1.75] text-[#2E1442] max-w-[600px]">
@@ -114,12 +121,12 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
       {/* OUR PHILOSOPHY WAVY LAVENDER BAND */}
       <section className="relative py-14 sm:py-16 bg-gradient-to-b from-[#EFE3FA] via-[#F4ECFC] to-[#EFE3FA] border-y border-[#E3CFF5]">
         <div className="layout-container">
-          <div className="flex items-center justify-center gap-4 mb-10">
-            <span className="w-16 sm:w-24 h-[1px] bg-[#B491D1]" />
-            <h2 className="font-sans-body text-[12.5px] font-semibold uppercase tracking-[0.28em] text-[#321048]">
+          <div className="flex items-center justify-center gap-3 sm:gap-4 mb-10">
+            <span className="w-12 sm:w-24 h-[1px] bg-[#B491D1]" />
+            <h2 className="font-sans-body text-[11.5px] sm:text-[12.5px] font-semibold uppercase tracking-[0.24em] sm:tracking-[0.28em] text-[#321048] whitespace-nowrap">
               OUR PHILOSOPHY
             </h2>
-            <span className="w-16 sm:w-24 h-[1px] bg-[#B491D1]" />
+            <span className="w-12 sm:w-24 h-[1px] bg-[#B491D1]" />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-8">
@@ -133,7 +140,7 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
                 }`}
               >
                 <div className="mb-3">{item.icon}</div>
-                <h3 className="font-serif-display text-[22px] font-semibold text-[#2E1142] mb-1.5">
+                <h3 className="font-serif-display text-[22px] font-semibold text-[#2E1142] mb-1.5 whitespace-nowrap">
                   {item.title}
                 </h3>
                 <p className="font-sans-body text-[13.5px] text-[#3F2157] leading-relaxed max-w-[230px]">
@@ -151,17 +158,17 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left Column */}
             <div className="lg:col-span-5 space-y-4">
-              <p className="font-sans-body text-[11.5px] font-semibold uppercase tracking-[0.25em] text-[#3A1352]">
+              <p className="font-sans-body text-[11px] sm:text-[11.5px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.25em] text-[#3A1352] whitespace-nowrap">
                 MEET THE FOUNDER
               </p>
-              <h2 className="font-serif-display text-[32px] sm:text-[40px] font-medium uppercase tracking-[0.03em] leading-[1.14] text-[#321048]">
+              <h2 className="font-serif-display text-[clamp(14px,2.55vw,36px)] font-medium uppercase tracking-[0.02em] sm:tracking-[0.025em] leading-[1.14] text-[#321048] whitespace-nowrap">
                 {settings.founderHeadline || 'THE HEART BEHIND SOUNDWITHIN'}
               </h2>
               <div className="w-14 h-[2px] bg-[#5D237A]" />
               <p className="font-sans-body text-[15px] sm:text-[15.5px] leading-[1.72] text-[#2E1442] pt-1 max-w-[540px]">
                 {settings.founderBioShort}
               </p>
-              <p className="text-[12px] text-[#6B4A8C] italic">
+              <p className="text-[12px] text-[#6B4A8C] italic whitespace-nowrap">
                 {settings.founderNoteLabel}
               </p>
               <div className="pt-2">
@@ -193,9 +200,8 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
           <div className="mt-12 rounded-[26px] bg-gradient-to-r from-[#EFE4FA] via-[#F6EFFD] to-[#EFE4FA] border border-[#D8C0EE] p-6 sm:p-8 shadow-[0_6px_22px_rgba(75,22,100,0.06)]">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
               <div className="lg:col-span-3 text-center lg:text-left lg:border-r lg:border-[#C5A3E0] lg:pr-6">
-                <h3 className="font-serif-display text-[26px] sm:text-[28px] font-medium uppercase tracking-[0.06em] text-[#321048] leading-tight">
-                  OUR
-                  <span className="block">APPROACH</span>
+                <h3 className="font-serif-display text-[clamp(20px,2.1vw,26px)] font-medium uppercase tracking-[0.05em] text-[#321048] leading-tight whitespace-nowrap">
+                  OUR APPROACH
                 </h3>
               </div>
 
@@ -210,7 +216,7 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
                     }`}
                   >
                     <div className="mb-2">{item.icon}</div>
-                    <h4 className="font-serif-display text-[21px] font-semibold text-[#2E1142] mb-1">
+                    <h4 className="font-serif-display text-[21px] font-semibold text-[#2E1142] mb-1 whitespace-nowrap">
                       {item.title}
                     </h4>
                     <p className="text-[13.5px] text-[#3F2157] leading-snug max-w-[230px]">
@@ -228,7 +234,7 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
       <section className="relative overflow-hidden bg-gradient-to-r from-[#DFCCF4] via-[#F3EAFB] to-[#DFCCF4] border-t border-[#D8C0EE]">
         <div className="layout-container">
           <div className="grid grid-cols-1 lg:grid-cols-12 items-center min-h-[220px]">
-            <div className="hidden lg:block lg:col-span-4 h-full">
+            <div className="hidden lg:block lg:col-span-3 h-full">
               <img
                 src={withBaseUrl('/assets/extracted/cta_about_left.png')}
                 alt="Waterfall and purple flowers"
@@ -238,13 +244,12 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
               />
             </div>
 
-            <div className="lg:col-span-4 py-12 px-6 text-center flex flex-col items-center justify-center">
-              <p className="font-sans-body text-[11.5px] font-semibold uppercase tracking-[0.26em] text-[#3A1352] mb-2">
+            <div className="lg:col-span-6 py-12 px-4 sm:px-6 text-center flex flex-col items-center justify-center">
+              <p className="font-sans-body text-[10.5px] sm:text-[11.5px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.26em] text-[#3A1352] mb-2 whitespace-nowrap">
                 WALK THE PATH WITH US
               </p>
-              <h2 className="font-serif-display text-[30px] sm:text-[38px] font-medium uppercase tracking-[0.04em] leading-[1.15] text-[#321048] mb-5">
-                BEGIN YOUR
-                <span className="block">HEALING JOURNEY</span>
+              <h2 className="font-serif-display text-[clamp(15px,2.7vw,34px)] font-medium uppercase tracking-[0.025em] sm:tracking-[0.035em] leading-[1.15] text-[#321048] mb-5 whitespace-nowrap">
+                BEGIN YOUR HEALING JOURNEY
               </h2>
               <button
                 type="button"
@@ -255,7 +260,7 @@ export function AboutPage({onNavigate, settings}: AboutPageProps) {
               </button>
             </div>
 
-            <div className="hidden lg:block lg:col-span-4 h-full">
+            <div className="hidden lg:block lg:col-span-3 h-full">
               <img
                 src={withBaseUrl('/assets/extracted/cta_about_right.png')}
                 alt="River stone and purple flowers"

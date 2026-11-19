@@ -1,10 +1,11 @@
 import React, {useRef, useEffect} from 'react';
-import {Calendar, Clock, Quote} from 'lucide-react';
+import {Quote} from 'lucide-react';
 import {HeroBanner} from '../components/HeroBanner';
+import {ExperienceCard} from '../components/ExperienceCard';
+import {RetreatCard} from '../components/RetreatCard';
 import {withBaseUrl} from '../utils/assetUrl';
 import {
   CrescentMoonIcon,
-  ExperienceBadgeIcon,
   LotusLineIcon,
   SoundwaveIcon,
   SproutLeafIcon,
@@ -262,16 +263,15 @@ export function HomePage({
         <div className="layout-container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left Text Column */}
-            <div className="lg:col-span-5 space-y-5">
-              <p className="font-sans-body text-[12px] font-semibold uppercase tracking-[0.24em] text-[#3B1554]">
+            <div className="lg:col-span-5 space-y-4">
+              <p className="font-sans-body text-[11px] sm:text-[12px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.24em] text-[#3B1554] whitespace-nowrap">
                 THE PRACTICE
               </p>
-              <h2 className="font-serif-display text-[34px] sm:text-[44px] font-medium uppercase leading-[1.12] tracking-[0.03em] text-[#321048]">
-                WHAT IS
-                <span className="block">SOUND HEALING?</span>
+              <h2 className="font-serif-display text-[clamp(18px,2.9vw,40px)] font-medium uppercase leading-[1.15] tracking-[0.02em] sm:tracking-[0.03em] text-[#321048] whitespace-nowrap">
+                WHAT IS SOUND HEALING?
               </h2>
               <div className="w-14 h-[2px] bg-[#5D237A]" />
-              <p className="font-sans-body text-[15.5px] sm:text-[16.5px] leading-[1.7] text-[#2E1442] pt-1 max-w-[540px]">
+              <p className="font-sans-body text-[15px] sm:text-[16px] leading-[1.7] text-[#2E1442] pt-1 max-w-[540px]">
                 A natural and powerful therapy that uses sound vibrations to calm
                 the nervous system, release stored stress and bring your mind,
                 body and emotions back into balance.
@@ -328,81 +328,29 @@ export function HomePage({
         </div>
 
         <div className="relative z-10 layout-container pt-8">
-          {/* Section Heading */}
-          <div className="text-center max-w-[680px] mx-auto mb-12">
-            <p className="font-sans-body text-[12px] font-semibold uppercase tracking-[0.25em] text-[#4B1664] mb-2">
+          {/* Section Heading — Single line heading and subheading across all devices */}
+          <div className="text-center w-full max-w-full mx-auto mb-9 sm:mb-12">
+            <p className="font-sans-body text-[10.5px] sm:text-[12px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.25em] text-[#4B1664] mb-1.5 sm:mb-2 whitespace-nowrap">
               OUR EXPERIENCES
             </p>
-            <h2 className="font-serif-display text-[32px] sm:text-[42px] font-medium uppercase tracking-[0.04em] leading-[1.15] text-[#321048]">
-              HEALING JOURNEYS
-              <span className="block">FOR YOUR INNER SELF</span>
+            <h2 className="font-serif-display text-[clamp(11.5px,3.1vw,40px)] font-medium uppercase tracking-[0.02em] sm:tracking-[0.04em] leading-[1.15] text-[#321048] whitespace-nowrap">
+              HEALING JOURNEYS FOR YOUR INNER SELF
             </h2>
-            <div className="w-14 h-[2px] bg-[#5D237A] mx-auto my-4" />
-            <p className="font-sans-body text-[15px] sm:text-[16px] text-[#3F2157] leading-relaxed">
-              Explore our curated sound healing, meditation and self-awareness
-              sessions designed for deep rest, emotional clarity and inner balance.
+            <div className="w-12 sm:w-14 h-[2px] bg-[#5D237A] mx-auto my-2.5 sm:my-3.5" />
+            <p className="font-sans-body text-[clamp(4.5px,1.42vw,15.5px)] tracking-[-0.015em] sm:tracking-normal text-[#3F2157] leading-relaxed mx-auto whitespace-nowrap">
+              Explore our curated sound healing, meditation and self-awareness sessions designed for deep rest, emotional clarity and inner balance.
             </p>
           </div>
 
-          {/* 3 Featured Experience Highlights */}
+          {/* 3 Featured Experience Highlights — Synchronised via Shared ExperienceCard */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-7 lg:gap-8">
-            {experiences.slice(0, 3).map((exp) => (
-              <article
+            {experiences.slice(0, 3).map((exp, index) => (
+              <ExperienceCard
                 key={exp.id}
-                className="group rounded-[26px] bg-gradient-to-b from-white via-[#FAF5FE] to-[#F3E9FB] border border-[#DEC9F2] shadow-[0_8px_28px_rgba(75,22,100,0.08)] hover:shadow-[0_14px_36px_rgba(75,22,100,0.15)] transition-all duration-200 overflow-hidden flex flex-col"
-              >
-                <div className="relative p-3 pb-0">
-                  <div className="relative h-52 w-full rounded-[20px] overflow-hidden">
-                    <img
-                      src={exp.image}
-                      alt={exp.name}
-                      referrerPolicy="no-referrer"
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                  </div>
-                  {/* Overlapping Circular Icon Badge */}
-                  <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-[#FAF6FE] border border-[#D4B8EE] shadow-md flex items-center justify-center text-[#5D237A]">
-                    <ExperienceBadgeIcon
-                      type={exp.iconType}
-                      className="w-6 h-6 text-[#5D237A]"
-                    />
-                  </div>
-                </div>
-
-                <div className="pt-8 pb-6 px-6 text-center flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="font-serif-display text-[24px] font-semibold text-[#2E1142] mb-2">
-                      {exp.name}
-                    </h3>
-                    <p className="text-[14px] text-[#432359] leading-relaxed mb-4 max-w-[340px] mx-auto">
-                      {exp.shortDescription}
-                    </p>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center justify-center gap-3 text-[13px] text-[#3B1554] font-medium py-2.5 border-t border-[#E6D4F6] mb-4">
-                      <span className="inline-flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5 text-[#6B2D8F]" />
-                        {exp.duration}
-                      </span>
-                      <span className="text-[#C4A5E0]">|</span>
-                      <span className="inline-flex items-center gap-1.5">
-                        <SproutLeafIcon className="w-4 h-4 text-[#6B2D8F]" />
-                        {exp.formatLabel}
-                      </span>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => onOpenExperienceDetail(exp)}
-                      className="inline-flex items-center justify-center px-8 py-2 rounded-full bg-white hover:bg-[#4B1664] text-[#3A1352] hover:text-white border border-[#5D237A] text-[13.5px] font-medium transition-colors cursor-pointer text-center"
-                    >
-                      <span>Learn More</span>
-                    </button>
-                  </div>
-                </div>
-              </article>
+                experience={exp}
+                index={index}
+                onLearnMore={onOpenExperienceDetail}
+              />
             ))}
           </div>
 
@@ -418,70 +366,35 @@ export function HomePage({
         </div>
       </section>
 
-      {/* 10. RETREAT INTRODUCTION SECTION */}
+      {/* 10. RETREAT INTRODUCTION SECTION — Synchronised via Shared RetreatCard */}
       <section className="py-16 sm:py-20 bg-[#F4ECFB]/70 border-y border-[#E5D3F6]">
         <div className="layout-container">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-            <div>
-              <p className="font-sans-body text-[12px] font-semibold uppercase tracking-[0.25em] text-[#5D237A] mb-2">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-5">
+            <div className="min-w-0">
+              <p className="font-sans-body text-[10.5px] sm:text-[12px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.25em] text-[#5D237A] mb-1.5 sm:mb-2 whitespace-nowrap">
                 NATURE-BASED SANCTUARIES
               </p>
-              <h2 className="font-serif-display text-[32px] sm:text-[40px] font-medium uppercase tracking-[0.03em] text-[#321048]">
+              <h2 className="font-serif-display text-[clamp(15.5px,3.4vw,40px)] font-medium uppercase tracking-[0.02em] sm:tracking-[0.03em] text-[#321048] whitespace-nowrap">
                 IMMERSIVE HEALING RETREATS
               </h2>
             </div>
             <button
               type="button"
               onClick={() => onNavigate('retreats')}
-              className="self-start md:self-auto inline-flex items-center justify-center px-7 py-2.5 rounded-full bg-white border border-[#5D237A] text-[#3A1352] hover:bg-[#4B1664] hover:text-white text-[14px] font-medium transition-colors cursor-pointer text-center"
+              className="self-start md:self-auto inline-flex items-center justify-center px-7 py-2.5 rounded-full bg-white border border-[#5D237A] text-[#3A1352] hover:bg-[#4B1664] hover:text-white text-[14px] font-medium transition-colors cursor-pointer text-center whitespace-nowrap"
             >
               <span>Explore All Retreats</span>
             </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-7 lg:gap-8">
-            {retreats.map((retreat) => (
-              <article
+            {retreats.map((retreat, index) => (
+              <RetreatCard
                 key={retreat.id}
-                className="rounded-[26px] bg-white border border-[#DEC9F2] shadow-[0_8px_24px_rgba(75,22,100,0.07)] overflow-hidden flex flex-col"
-              >
-                <div className="relative p-3 pb-0">
-                  <div className="relative h-52 rounded-[20px] overflow-hidden">
-                    <img
-                      src={retreat.image}
-                      alt={retreat.name}
-                      referrerPolicy="no-referrer"
-                      loading="lazy"
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute top-3 right-3 px-3.5 py-1.5 rounded-full bg-white/95 text-[#3A1352] text-[12px] font-medium flex items-center gap-1.5 shadow-md">
-                      <Calendar className="w-3.5 h-3.5 text-[#5D237A]" />
-                      <span>{retreat.badgeDuration}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-6 text-center flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="font-serif-display text-[24px] font-semibold text-[#2E1142] mb-2">
-                      {retreat.name}
-                    </h3>
-                    <p className="text-[14px] text-[#432359] leading-relaxed mb-5 max-w-[340px] mx-auto">
-                      {retreat.shortDescription}
-                    </p>
-                  </div>
-
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => onOpenRetreatDetail(retreat)}
-                      className="inline-flex items-center justify-center px-8 py-2 rounded-full bg-white hover:bg-[#4B1664] text-[#3A1352] hover:text-white border border-[#5D237A] text-[13.5px] font-medium transition-colors cursor-pointer text-center"
-                    >
-                      <span>Explore Retreat</span>
-                    </button>
-                  </div>
-                </div>
-              </article>
+                retreat={retreat}
+                index={index}
+                onExplore={onOpenRetreatDetail}
+              />
             ))}
           </div>
         </div>
@@ -490,11 +403,11 @@ export function HomePage({
       {/* 11. TESTIMONIALS SECTION */}
       <section className="py-16 sm:py-20 bg-[#FAF7FD]">
         <div className="layout-container">
-          <div className="text-center max-w-[640px] mx-auto mb-12">
-            <p className="font-sans-body text-[12px] font-semibold uppercase tracking-[0.25em] text-[#5D237A] mb-2">
+          <div className="text-center w-full max-w-full mx-auto mb-10 sm:mb-12">
+            <p className="font-sans-body text-[10.5px] sm:text-[12px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.25em] text-[#5D237A] mb-1.5 sm:mb-2 whitespace-nowrap">
               REFLECTIONS
             </p>
-            <h2 className="font-serif-display text-[32px] sm:text-[40px] font-medium uppercase tracking-[0.03em] text-[#321048]">
+            <h2 className="font-serif-display text-[clamp(16px,3.5vw,40px)] font-medium uppercase tracking-[0.025em] sm:tracking-[0.03em] text-[#321048] whitespace-nowrap">
               STORIES OF INNER BALANCE
             </h2>
             <div className="my-3 flex justify-center">
@@ -531,12 +444,12 @@ export function HomePage({
         </div>
       </section>
 
-      {/* 12. FINAL BOOKING CTA BANNER */}
-      <section className="pb-14 pt-4 bg-gradient-to-b from-[#FAF7FD] to-[#EADBF8]">
+      {/* 12. FINAL BOOKING CTA BANNER — Matches Experience Card Styling, Compact Burgundy Button & Subtle Divider */}
+      <section className="pt-4 pb-4 sm:pb-8 bg-gradient-to-b from-[#FAF7FD] to-[#EADBF8]/80">
         <div className="layout-container">
-          <div className="relative rounded-[28px] overflow-hidden border border-[#D4B8EE] shadow-[0_12px_36px_rgba(58,19,82,0.16)] bg-[#E7D8F7]">
-            <div className="grid grid-cols-1 lg:grid-cols-12 items-center min-h-[220px]">
-              <div className="hidden lg:block lg:col-span-4 h-full">
+          <div className="relative rounded-[24px] overflow-hidden border border-[#DFC4EC] shadow-[0_10px_30px_rgba(62,20,88,0.09)] bg-gradient-to-b from-[#FDEEF5] via-[#F4E8FB] to-[#E8D5F7]">
+            <div className="grid grid-cols-1 lg:grid-cols-12 items-center lg:min-h-[195px]">
+              <div className="hidden lg:block lg:col-span-3 h-full">
                 <img
                   src={withBaseUrl('/assets/extracted/cta_exp_left.png')}
                   alt="Waterfall and lotus blossom"
@@ -545,23 +458,22 @@ export function HomePage({
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="lg:col-span-4 py-10 px-6 text-center flex flex-col items-center justify-center bg-gradient-to-r from-[#E9DBF8]/90 via-[#F4ECFC] to-[#E9DBF8]/90">
-                <p className="text-[11.5px] font-semibold uppercase tracking-[0.25em] text-[#3B1554] mb-2">
+              <div className="relative z-10 lg:col-span-6 py-6 px-4 sm:py-7 sm:px-6 lg:py-8 text-center flex flex-col items-center justify-center lg:bg-gradient-to-r lg:from-[#F5E9FB]/95 lg:via-[#FDF8FC] lg:to-[#F5E9FB]/95">
+                <p className="font-sans-body text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.25em] text-[#70283F]/85 mb-1.5">
                   READY TO BEGIN?
                 </p>
-                <h2 className="font-serif-display text-[28px] sm:text-[34px] font-medium uppercase tracking-[0.03em] leading-[1.15] text-[#321048] mb-5">
-                  BOOK YOUR
-                  <span className="block">HEALING EXPERIENCE</span>
+                <h2 className="font-serif-display text-[clamp(14.5px,4.2vw,24px)] sm:text-[26px] lg:text-[27px] xl:text-[30px] font-bold uppercase tracking-[0.02em] leading-[1.15] text-[#2F1041] whitespace-nowrap mb-3.5 sm:mb-4">
+                  BOOK YOUR HEALING EXPERIENCE
                 </h2>
                 <button
                   type="button"
                   onClick={() => onNavigate('book')}
-                  className="inline-flex items-center justify-center px-9 py-3 rounded-full bg-[#4B1664] hover:bg-[#3A0E50] text-white text-[14.5px] font-medium shadow-[0_6px_18px_rgba(75,22,100,0.38)] transition-all cursor-pointer text-center"
+                  className="inline-flex items-center justify-center px-5 py-1.5 sm:px-6 sm:py-2 rounded-full bg-[#681E38] hover:bg-[#52152C] active:bg-[#461125] text-white font-sans-body text-[11.5px] sm:text-[13px] font-semibold tracking-[0.015em] shadow-[0_3px_10px_rgba(104,30,56,0.22)] transition-colors duration-200 cursor-pointer text-center"
                 >
                   <span>Book a Session</span>
                 </button>
               </div>
-              <div className="hidden lg:block lg:col-span-4 h-full">
+              <div className="hidden lg:block lg:col-span-3 h-full">
                 <img
                   src={withBaseUrl('/assets/extracted/cta_exp_right.png')}
                   alt="Glowing lantern and purple blossoms"
@@ -571,6 +483,16 @@ export function HomePage({
                 />
               </div>
             </div>
+          </div>
+
+          {/* Subtle Muted Gold & Light Burgundy Horizontal Divider separating CTA from Footer */}
+          <div
+            className="mt-4 sm:mt-6 flex items-center justify-center gap-2.5 px-4"
+            aria-hidden="true"
+          >
+            <span className="h-[1px] flex-1 max-w-[130px] sm:max-w-[220px] bg-gradient-to-r from-transparent via-[#C69A4A]/55 to-[#70283F]/40" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#B78A45]/75" />
+            <span className="h-[1px] flex-1 max-w-[130px] sm:max-w-[220px] bg-gradient-to-l from-transparent via-[#C69A4A]/55 to-[#70283F]/40" />
           </div>
         </div>
       </section>

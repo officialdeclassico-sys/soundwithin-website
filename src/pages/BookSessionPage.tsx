@@ -520,15 +520,14 @@ export function BookSessionPage({
                 <CheckCircle2 className="w-9 h-9" />
               </div>
 
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#5D237A] mb-1">
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#5D237A] mb-1 whitespace-nowrap">
                 Booking Confirmed &amp; Saved
               </p>
-              <h2 className="font-serif-display text-3xl sm:text-4xl font-semibold text-[#2E1142] mb-2">
+              <h2 className="font-serif-display text-[clamp(16px,3.2vw,36px)] font-semibold text-[#2E1142] mb-2 whitespace-nowrap">
                 We Look Forward to Welcoming You
               </h2>
-              <p className="text-[14.5px] text-[#4A2B63] max-w-[520px] mx-auto mb-6">
-                Your session has been reserved in our schedule. Please keep your
-                unique booking reference for your records.
+              <p className="text-[clamp(6.8px,1.9vw,14.5px)] text-[#4A2B63] mx-auto mb-6 whitespace-nowrap">
+                Your session has been reserved in our schedule. Please keep your unique booking reference for your records.
               </p>
 
               {/* Unique Reference Badge */}
@@ -625,7 +624,7 @@ export function BookSessionPage({
             <div className="space-y-12 lg:space-y-14">
               {/* 1. CHOOSE YOUR EXPERIENCE — 6-CARD RESPONSIVE GRID (Desktop 3x2, Tablet 2x3, Mobile 1x6) */}
               <div>
-                <h2 className="font-serif-display text-[28px] sm:text-[34px] font-medium uppercase tracking-[0.04em] text-[#321048] mb-6">
+                <h2 className="font-serif-display text-[clamp(18px,3.2vw,34px)] font-medium uppercase tracking-[0.03em] sm:tracking-[0.04em] text-[#321048] mb-6 whitespace-nowrap">
                   CHOOSE YOUR EXPERIENCE
                 </h2>
 

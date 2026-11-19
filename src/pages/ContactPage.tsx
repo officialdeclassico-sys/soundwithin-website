@@ -168,10 +168,10 @@ export function ContactPage({
       <HeroBanner
         currentPage="contact"
         onNavigate={onNavigate}
-        variant="brass-lantern"
-        kicker="CONTACT US"
-        titleLines={["LET'S", 'CONNECT']}
-        description="Have a question, want to book a session or learn more about our retreats? We're here to support your healing journey."
+        variant="contact-corner"
+        kicker="WE'RE HERE FOR YOU"
+        titleLines={["Let's Connect"]}
+        description="Have a question or want to begin your wellness journey? We'd love to hear from you."
       />
 
       {/* MAIN TWO-COLUMN CONTACT SECTION */}
@@ -181,12 +181,11 @@ export function ContactPage({
             {/* LEFT COLUMN: GET IN TOUCH */}
             <div className="lg:col-span-5 lg:pr-10 lg:border-r lg:border-[#D9C2EE] space-y-6">
               <div>
-                <p className="font-sans-body text-[11.5px] font-semibold uppercase tracking-[0.26em] text-[#3A1352] mb-2">
+                <p className="font-sans-body text-[11px] sm:text-[11.5px] font-semibold uppercase tracking-[0.22em] sm:tracking-[0.26em] text-[#3A1352] mb-2 whitespace-nowrap">
                   GET IN TOUCH
                 </p>
-                <h2 className="font-serif-display text-[32px] sm:text-[40px] font-medium uppercase tracking-[0.03em] leading-[1.15] text-[#321048]">
-                  WE&rsquo;D LOVE
-                  <span className="block">TO HEAR FROM YOU</span>
+                <h2 className="font-serif-display text-[clamp(15px,2.3vw,32px)] font-medium uppercase tracking-[0.02em] sm:tracking-[0.025em] leading-[1.15] text-[#321048] whitespace-nowrap">
+                  WE&rsquo;D LOVE TO HEAR FROM YOU
                 </h2>
                 <div className="w-12 h-[2px] bg-[#5D237A] mt-3.5 mb-4" />
                 <p className="font-sans-body text-[15px] leading-[1.7] text-[#2E1442] max-w-[480px]">
